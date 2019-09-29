@@ -1,4 +1,4 @@
-import convertBytesToHuman from '../../convertBytesToHuman';
+import convertBytesToHuman from '../../convertBytesToHuman.js'
 
 /*
  * Необходимо покрыть все возможные
@@ -19,12 +19,13 @@ test('Возвращает false для неправильного типа да
   expect(convertBytesToHuman(Symbol("id"))).toBe(false)
   expect(convertBytesToHuman(Math)).toBe(false)
   expect(convertBytesToHuman(3.14)).toBe(false)
-});
+})
 
 test('Возвращает корректное значение для чисел', () => {
-  expect(convertBytesToHuman(5)).toBe(5)
-  expect(convertBytesToHuman(5.0)).toBe(5)
-  expect(convertBytesToHuman(0)).toBe(0)
-});
-
-
+  expect(convertBytesToHuman(5)).toBe("5 bytes")
+  expect(convertBytesToHuman(5.0)).toBe("5 bytes")
+  expect(convertBytesToHuman(0)).toBe("0 bytes")
+  expect(convertBytesToHuman(1024)).toBe("1 KB")
+  expect(convertBytesToHuman(1572864)).toBe("1.5 MB")
+  expect(convertBytesToHuman(231231231)).toBe("220.51 MB")
+})

@@ -25,22 +25,22 @@ nonUniqueElements([10, 9, 10, 10, 9, 8]) == [10, 9, 10, 10, 9]
  */
 
 export default function nonUniqueElements(data) {
-    let counter = new Map();
-    let newData = new Array();
+  let counter = new Map();
+  let newData = new Array();
 
-    for(let i = 0; i < data.length; ++i){
-        if(counter.has(data[i])){
-            counter.set(data[i], counter.get(data[i]) + 1);
-        } else {
-            counter.set(data[i], 1);
-        }
-    }
+  for(let i = 0; i < data.length; ++i){
+      if(counter.has(data[i])){
+          counter.set(data[i], counter.get(data[i]) + 1);
+      } else {
+          counter.set(data[i], 1);
+      }
+  }
 
-    for(let i = 0; i < data.length; ++i){
-        if (counter.get(data[i]) > 1){
-            newData.push(data[i]);
-        }
-    }
-  
-    return newData;
+  for(let i = 0; i < data.length; ++i){
+      if (counter.get(data[i]) > 1){
+          newData.push(data[i]);
+      }
+  }
+
+  return newData;
 }
