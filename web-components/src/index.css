@@ -1,0 +1,71 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #fff;
+    color: #333;
+    font-size: 15px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+body::-webkit-scrollbar { 
+    width: 0;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    width: 100%;
+    background-color: blueviolet;
+}
+
+.back-button, .search, .chat-menu{
+    display: inline-flex;
+    flex-grow:1;
+    align-items: center;
+    justify-content: center;
+}
+
+svg {
+    fill: white;
+}
+
+.chat-info {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-grow:15;
+}
+
+.avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%; 
+}
+
+.name {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5%;
+    color: white;
+    font-weight: bold;
+}
+
+
+
