@@ -17,5 +17,5 @@ deploy:
   on:
     branch:
       - master
-      - devel
+      - dev1
       - /^dev\d+$/
