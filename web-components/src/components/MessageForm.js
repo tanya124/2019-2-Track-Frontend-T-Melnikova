@@ -30,6 +30,7 @@ template.innerHTML = `
         .message_block {
             display: flex;
             flex-direction: column;
+            align-self: flex-end;
             justify-content: flex-start;
             max-width: 80%;
             min-width: 7%;
@@ -38,20 +39,19 @@ template.innerHTML = `
             line-height: 24px;
             position:relative;
             padding:10px 20px 0px 20px;
-            margin-left: 10px;
-            border-radius:25px;
+            margin-right: 10px;
+            border-radius: 15px;
             background-color: #f1f1f1;
-            &:before, &:after {
-                content:"";
-                position:absolute;
-                bottom: -2px;
-                height:20px;
-            }
         }
-        .message_block::after {
-            content: "";
-            clear: both;
-            display: inline-flex;
+        .message_block::after { 
+            content: ''; 
+            position: absolute; 
+            width: 0; 
+            height: 0; 
+            right: -8px; 
+            bottom: 0px;  
+            border: 10px solid; 
+            border-color: transparent transparent #f1f1f1 #f1f1f1; 
         }
         .name {
             height: 100%;
