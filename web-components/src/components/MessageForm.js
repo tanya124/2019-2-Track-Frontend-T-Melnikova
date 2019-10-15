@@ -171,26 +171,29 @@ class MessageForm extends HTMLElement {
   }
 
   _onKeyPress(event) {
-    if (event.keyCode === 13 && !event.shiftKey && this.$input.value !== '') {
-      this.$form.dispatchEvent(new Event('submit'));
+    if (event.keyCode === 13 && !event.shiftKey) {
+      event.preventDefault();
+      if (this.$input.value !== '' && this.$input.value !== '\n') {
+        this.$form.dispatchEvent(new Event('submit'));
 
-      let user_name = this._getUserName();
-      let time_send = this._getTime();
+        let user_name = this._getUserName();
+        let time_send = this._getTime();
 
-      let item = window.localStorage.getItem('messages');
-      let messages = [];
-      if (item !== null) {
-        messages = JSON.parse(item);
+        let item = window.localStorage.getItem('messages');
+        let messages = [];
+        if (item !== null) {
+          messages = JSON.parse(item);
+        }
+
+        messages.push({
+          'name': user_name,
+          'time': time_send,
+          'content': this.$input.value,
+        });
+        window.localStorage.setItem('messages', JSON.stringify(messages));
       }
-
-      messages.push({
-        'name': user_name,
-        'time': time_send,
-        'content': this.$input.value,
-      });
-      window.localStorage.setItem('messages', JSON.stringify(messages));
+      this.$input._reset();
     }
-    this.$input._reset();
   }
 }
 

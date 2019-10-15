@@ -61,7 +61,6 @@ class FormInput extends HTMLElement {
   }
 
   _reset() {
-    console.log(this.$input.value);
     this.$input.value = '';
   }
 }
