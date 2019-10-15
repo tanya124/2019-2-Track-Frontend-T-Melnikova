@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
 /* eslint-disable one-var */
@@ -164,30 +165,32 @@ class MessageForm extends HTMLElement {
 
   _onSubmit(event) {
     event.preventDefault();
-    if (this.$input.value !== '') {
-      let user_name = this._getUserName();
-      let time_send = this._getTime();
-      this._createMessageBlock(this.$input.value, user_name, time_send);
-    }
+    let user_name = this._getUserName();
+    let time_send = this._getTime();
+    this._createMessageBlock(this.$input.value, user_name, time_send);
   }
 
   _onKeyPress(event) {
-    if (event.keyCode === 13 && !event.shiftKey) {
+    if (event.keyCode === 13 && !event.shiftKey && this.$input.value !== '') {
       this.$form.dispatchEvent(new Event('submit'));
-      if (this.$input.value !== '') {
-        let user_name = this._getUserName();
-        let time_send = this._getTime();
 
-        let key = {
-          index: window.localStorage.length,
-          name: user_name,
-          time: time_send,
-        };
-        let serialKey = JSON.stringify(key);
-        window.localStorage.setItem(serialKey, this.$input.value);
-        this.$input._reset();
+      let user_name = this._getUserName();
+      let time_send = this._getTime();
+
+      let item = window.localStorage.getItem('messages');
+      let messages = [];
+      if (item !== null) {
+        messages = JSON.parse(item);
       }
+
+      messages.push({
+        'name': user_name,
+        'time': time_send,
+        'content': this.$input.value,
+      });
+      window.localStorage.setItem('messages', JSON.stringify(messages));
     }
+    this.$input._reset();
   }
 }
 
