@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable quote-props */
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
@@ -87,16 +88,21 @@ template.innerHTML = `
 class MessageForm extends HTMLElement {
   constructor() {
     super();
-    // eslint-disable-next-line no-underscore-dangle
+
     this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.$form = this._shadowRoot.querySelector('form');
     this.$input = this._shadowRoot.querySelector('form-input');
     this.$message = this._shadowRoot.querySelector('.result');
     this.$username = '';
+    this.$id_chat = 0;
 
     this.$form.addEventListener('submit', this._onSubmit.bind(this));
     this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
+  }
+
+  set id_chat(id_val) {
+    this.$id_chat = id_val;
   }
 
   _setUserName(name) {
@@ -107,10 +113,7 @@ class MessageForm extends HTMLElement {
     this.$message.scrollTop = this.$message.scrollHeight;
   }
 
-  // eslint-disable-next-line camelcase
   _createMessageBlock(content, user_name, time_send) {
-    // eslint-disable-next-line camelcase
-    // eslint-disable-next-line prefer-const
     let message_block = document.createElement('div');
     message_block.setAttribute('class', 'message_block');
 
@@ -179,20 +182,32 @@ class MessageForm extends HTMLElement {
         let user_name = this._getUserName();
         let time_send = this._getTime();
 
-        let item = window.localStorage.getItem('messages');
-        let messages = [];
-        if (item !== null) {
-          messages = JSON.parse(item);
-        }
 
-        messages.push({
+        let chats = JSON.parse(window.localStorage.getItem('chats'));
+        let node_chat = [];
+        for (let i = 0; i < chats.length; ++i) {
+          if (chats[i].id === this.$id_chat) {
+            node_chat = chats[i];
+            chats.splice(i, 1);
+            break;
+          }
+        }
+        node_chat.messages.push({
           'name': user_name,
           'time': time_send,
           'content': this.$input.value,
         });
-        window.localStorage.setItem('messages', JSON.stringify(messages));
+        chats.push(node_chat);
+
+        window.localStorage.setItem('chats', JSON.stringify(chats));
       }
       this.$input._reset();
+    }
+  }
+
+  _clearForm() {
+    while (this.$message.firstChild) {
+      this.$message.removeChild(this.$message.firstChild);
     }
   }
 }
