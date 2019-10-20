@@ -160,6 +160,7 @@ class ListConversations extends HTMLElement {
       'messages': [],
     };
 
+    this.$conversations_array = JSON.parse(window.localStorage.getItem('chats'));
     this.$conversations_array.push(item);
     window.localStorage.setItem('chats', JSON.stringify(this.$conversations_array));
   }

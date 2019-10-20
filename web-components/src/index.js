@@ -9,7 +9,6 @@ import './components/ListConversations';
 import './components/FormInput';
 import './components/MessageForm';
 
-
 let chats_array = localStorage.getItem('chats');
 if (chats_array === null) {
   localStorage.setItem('chats', JSON.stringify([]));
@@ -18,12 +17,13 @@ chats_array = JSON.parse(chats_array);
 
 let chats_window = document.getElementById('list-conversations');
 
-for (let i = chats_array.length - 1; i >= 0; --i) {
-  let len_mssages_array = chats_array[i].messages.length;
-  // eslint-disable-next-line max-len
-  chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, chats_array[i].messages[len_mssages_array - 1].content, chats_array[i].messages[len_mssages_array - 1].time);
+if (chats_array.length !== 0) {
+  for (let i = chats_array.length - 1; i >= 0; --i) {
+    let len_mssages_array = chats_array[i].messages.length;
+    // eslint-disable-next-line max-len
+    chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, chats_array[i].messages[len_mssages_array - 1].content, chats_array[i].messages[len_mssages_array - 1].time);
+  }
 }
-
 
 // Переход из беседы к списку бесед
 let chats = document.getElementsByClassName('chats')[0];
