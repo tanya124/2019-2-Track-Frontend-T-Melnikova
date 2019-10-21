@@ -159,7 +159,7 @@ class ListConversations extends HTMLElement {
   }
 
   _onClickButtonInForm() {
-    if (this.$input.value !== '') {
+    if (this.$input.value) {
       this._createChat();
       this.$input.value = '';
       this.$form.style.display = 'none';

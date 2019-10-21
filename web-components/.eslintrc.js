@@ -12,6 +12,8 @@ module.exports = {
             "func-names": "off",
             "max-len": "off",
             "class-methods-use-this": "off",
+            "no-restricted-syntax": "off",
+            "no-alert": "off",
           }
         }
       ]

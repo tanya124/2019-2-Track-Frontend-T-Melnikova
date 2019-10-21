@@ -3,7 +3,7 @@
   "scripts": {
     "lint:js": "eslint --fix src/**/*.js src/*.js",
     "test": "npm run lint:js",
-    "start": "webpack-dev-server --mode=development --hot",
+    "start": "webpack-dev-server --mode=development --hot --watch-poll",
     "build": "webpack --mode=development"
   },
   "devDependencies": {

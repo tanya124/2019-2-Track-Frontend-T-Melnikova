@@ -121,10 +121,11 @@ class MessageForm extends HTMLElement {
 
     const messageList = content.split('\n');
     let flag = true; // true, если элементы еще не добавлялись
-    for (let i = 0; i < messageList.length; ++i) {
-      if (messageList[i] !== '' || (messageList[i] === '' && !flag)) {
-        const row = document.createTextNode(messageList[i]);
-        text_message.appendChild(row);
+
+    for (const row of messageList) {
+      if (row || (row && !flag)) {
+        const row_node = document.createTextNode(row);
+        text_message.appendChild(row_node);
         text_message.appendChild(document.createElement('br'));
         flag = false;
       }
@@ -145,7 +146,7 @@ class MessageForm extends HTMLElement {
 
   _getUserName() {
     let user_name;
-    if (this.$username !== '') {
+    if (this.$username) {
       user_name = this.$username;
     } else {
       user_name = 'Anonymous';
@@ -176,7 +177,7 @@ class MessageForm extends HTMLElement {
 
 
         const chats = JSON.parse(window.localStorage.getItem('chats'));
-        let node_chat = [];
+        let node_chat = {};
         for (let i = 0; i < chats.length; ++i) {
           if (chats[i].id === this.$id_chat) {
             node_chat = chats[i];
