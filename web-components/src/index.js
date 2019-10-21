@@ -1,8 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable func-names */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable prefer-const */
 import './index.css';
 import './components/Conversation';
 import './components/ListConversations';
@@ -13,15 +8,18 @@ let chats_array = localStorage.getItem('chats');
 if (chats_array === null) {
   localStorage.setItem('chats', JSON.stringify([]));
 }
-chats_array = JSON.parse(chats_array);
+chats_array = JSON.parse(chats_array) || [];
 
 let chats_window = document.getElementById('list-conversations');
 
 if (chats_array.length !== 0) {
   for (let i = chats_array.length - 1; i >= 0; --i) {
     let len_mssages_array = chats_array[i].messages.length;
-    // eslint-disable-next-line max-len
-    chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, chats_array[i].messages[len_mssages_array - 1].content, chats_array[i].messages[len_mssages_array - 1].time);
+    if (len_mssages_array > 0) {
+      chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, chats_array[i].messages[len_mssages_array - 1].content, chats_array[i].messages[len_mssages_array - 1].time);
+    } else {
+      chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, '', '');
+    }
   }
 }
 
@@ -41,7 +39,10 @@ back_button.onclick = function () {
   chats_array = JSON.parse(localStorage.getItem('chats'));
   for (let i = chats_array.length - 1; i >= 0; --i) {
     let len_mssages_array = chats_array[i].messages.length;
-    // eslint-disable-next-line max-len
-    chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, chats_array[i].messages[len_mssages_array - 1].content, chats_array[i].messages[len_mssages_array - 1].time);
+    if (len_mssages_array > 0) {
+      chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, chats_array[i].messages[len_mssages_array - 1].content, chats_array[i].messages[len_mssages_array - 1].time);
+    } else {
+      chats_window._createChatBlock(chats_array[i].id, chats_array[i].name, '', '');
+    }
   }
 };

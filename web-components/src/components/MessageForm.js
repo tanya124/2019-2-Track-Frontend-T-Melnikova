@@ -1,10 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable quote-props */
-/* eslint-disable prefer-const */
-/* eslint-disable camelcase */
-/* eslint-disable one-var */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -128,7 +121,6 @@ class MessageForm extends HTMLElement {
 
     let messageList = content.split('\n');
     let flag = true; // true, если элементы еще не добавлялись
-    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < messageList.length; ++i) {
       if (messageList[i] !== '' || (messageList[i] === '' && !flag)) {
         let row = document.createTextNode(messageList[i]);
@@ -193,9 +185,9 @@ class MessageForm extends HTMLElement {
           }
         }
         node_chat.messages.push({
-          'name': user_name,
-          'time': time_send,
-          'content': this.$input.value,
+          name: user_name,
+          time: time_send,
+          content: this.$input.value,
         });
         chats.push(node_chat);
 

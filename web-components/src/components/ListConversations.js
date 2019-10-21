@@ -1,10 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable quote-props */
-/* eslint-disable prefer-const */
-/* eslint-disable func-names */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -122,7 +115,7 @@ class ListConversations extends HTMLElement {
     this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this.$conversations_array = JSON.parse(window.localStorage.getItem('chats'));
+    this.$conversations_array = JSON.parse(window.localStorage.getItem('chats')) || [];
     this.$list = this._shadowRoot.querySelector('.list');
     this.$chat_creater = this._shadowRoot.querySelector('.button-create-chat');
 
@@ -155,9 +148,9 @@ class ListConversations extends HTMLElement {
     this._createChatBlock(this.$conversations_array.length, this.$input.value, '', '');
 
     let item = {
-      'id': this.$conversations_array.length,
-      'name': this.$input.value,
-      'messages': [],
+      id: this.$conversations_array.length,
+      name: this.$input.value,
+      messages: [],
     };
 
     this.$conversations_array = JSON.parse(window.localStorage.getItem('chats'));
@@ -165,7 +158,7 @@ class ListConversations extends HTMLElement {
     window.localStorage.setItem('chats', JSON.stringify(this.$conversations_array));
   }
 
-  _onClickButtonInForm(event) {
+  _onClickButtonInForm() {
     if (this.$input.value !== '') {
       this._createChat();
       this.$input.value = '';
@@ -173,7 +166,7 @@ class ListConversations extends HTMLElement {
     }
   }
 
-  _onClick(event) {
+  _onClick() {
     this.$form.style.display = 'flex';
   }
 
