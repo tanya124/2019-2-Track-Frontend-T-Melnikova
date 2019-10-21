@@ -17,7 +17,3 @@ module.exports = {
         }
       ]
 };
-
-{
-  "no-extra-semi": 0
-}
