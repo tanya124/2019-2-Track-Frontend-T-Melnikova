@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "lint:js": "eslint src/**/*.js src/*.js",
+    "lint:js": "eslint --fix src/**/*.js src/*.js",
     "test": "npm run lint:js",
-    "start": "webpack-dev-server --mode=development --hot --watch-poll",
+    "start": "webpack-dev-server --mode=development --hot",
     "build": "webpack --mode=development"
   },
   "devDependencies": {

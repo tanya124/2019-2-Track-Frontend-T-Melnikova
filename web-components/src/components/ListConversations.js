@@ -136,7 +136,7 @@ class ListConversations extends HTMLElement {
   }
 
   _createChatBlock(id_chat, username, last_massage, time) {
-    let chat = document.createElement('conversation-block');
+    const chat = document.createElement('conversation-block');
     chat.setAttribute('class', 'conversation-block');
     chat.id_chat = id_chat;
     chat._setData(username, last_massage, time);
@@ -147,7 +147,7 @@ class ListConversations extends HTMLElement {
   _createChat() {
     this._createChatBlock(this.$conversations_array.length, this.$input.value, '', '');
 
-    let item = {
+    const item = {
       id: this.$conversations_array.length,
       name: this.$input.value,
       messages: [],

@@ -107,23 +107,23 @@ class MessageForm extends HTMLElement {
   }
 
   _createMessageBlock(content, user_name, time_send) {
-    let message_block = document.createElement('div');
+    const message_block = document.createElement('div');
     message_block.setAttribute('class', 'message_block');
 
-    let name = document.createElement('div');
+    const name = document.createElement('div');
     name.setAttribute('class', 'name');
-    let user_name_format = document.createTextNode(`${user_name}:`);
+    const user_name_format = document.createTextNode(`${user_name}:`);
     name.appendChild(user_name_format);
     message_block.appendChild(name);
 
-    let text_message = document.createElement('div');
+    const text_message = document.createElement('div');
     text_message.setAttribute('class', 'message');
 
-    let messageList = content.split('\n');
+    const messageList = content.split('\n');
     let flag = true; // true, если элементы еще не добавлялись
     for (let i = 0; i < messageList.length; ++i) {
       if (messageList[i] !== '' || (messageList[i] === '' && !flag)) {
-        let row = document.createTextNode(messageList[i]);
+        const row = document.createTextNode(messageList[i]);
         text_message.appendChild(row);
         text_message.appendChild(document.createElement('br'));
         flag = false;
@@ -132,9 +132,9 @@ class MessageForm extends HTMLElement {
 
     message_block.appendChild(text_message);
 
-    let time = document.createElement('div');
+    const time = document.createElement('div');
     time.setAttribute('class', 'time');
-    let format_time = document.createTextNode(time_send.slice(0, time_send.lastIndexOf(':')));
+    const format_time = document.createTextNode(time_send.slice(0, time_send.lastIndexOf(':')));
     time.appendChild(format_time);
     message_block.appendChild(time);
 
@@ -154,14 +154,14 @@ class MessageForm extends HTMLElement {
   }
 
   _getTime() {
-    let date = new Date();
+    const date = new Date();
     return `${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}:${date.getSeconds()}`;
   }
 
   _onSubmit(event) {
     event.preventDefault();
-    let user_name = this._getUserName();
-    let time_send = this._getTime();
+    const user_name = this._getUserName();
+    const time_send = this._getTime();
     this._createMessageBlock(this.$input.value, user_name, time_send);
   }
 
@@ -171,11 +171,11 @@ class MessageForm extends HTMLElement {
       if (this.$input.value !== '' && this.$input.value !== '\n') {
         this.$form.dispatchEvent(new Event('submit'));
 
-        let user_name = this._getUserName();
-        let time_send = this._getTime();
+        const user_name = this._getUserName();
+        const time_send = this._getTime();
 
 
-        let chats = JSON.parse(window.localStorage.getItem('chats'));
+        const chats = JSON.parse(window.localStorage.getItem('chats'));
         let node_chat = [];
         for (let i = 0; i < chats.length; ++i) {
           if (chats[i].id === this.$id_chat) {
