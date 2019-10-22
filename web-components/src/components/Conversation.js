@@ -1,10 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable max-len */
-/* eslint-disable camelcase */
-/* eslint-disable no-plusplus */
-/* eslint-disable prefer-const */
-/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -27,6 +20,7 @@ template.innerHTML = `
     }
     .content {
       display: flex;
+      max-width: 100%;
       flex-direction: column;
       flex-grow: 20;
       padding:0 10px;
@@ -44,6 +38,11 @@ template.innerHTML = `
       flex-grow: 10;
     }
     .message {
+      display: block;
+      max-width: 95%;
+      white-space: nowrap; /* forces text to single line */
+      overflow: hidden;
+      text-overflow: ellipsis;
       font-size: 13px; 
       color: gray;
     }
@@ -72,7 +71,8 @@ template.innerHTML = `
             <div class="time"></div>
         </div>
         <div class="message-indicator">
-            <div class="message"></div>
+            <div class="message">
+            </div>
             <div class="indicator">+</div>
         </div>
     </div>

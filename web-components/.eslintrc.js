@@ -14,6 +14,7 @@ module.exports = {
             "class-methods-use-this": "off",
             "no-restricted-syntax": "off",
             "no-alert": "off",
+            "no-param-reassign": "off",
           }
         }
       ]
