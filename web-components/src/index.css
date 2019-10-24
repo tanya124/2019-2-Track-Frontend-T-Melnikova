@@ -25,6 +25,14 @@ body::-webkit-scrollbar {
     width: 0;
 }
 
+.conversation {
+    display: none;
+}
+
+.chats {
+    display: block;
+}
+
 .header {
     display: flex;
     flex-direction: row;
@@ -33,14 +41,26 @@ body::-webkit-scrollbar {
     background-color: blueviolet;
 }
 
-.back-button, .search, .chat-menu{
+.back-button, .search, .chat-menu, .burger, .head-text{
     display: inline-flex;
     flex-grow:1;
     align-items: center;
     justify-content: center;
 }
 
+.burger, .back-button{
+    margin-left: 10px;
+    justify-content: flex-start;
+}
+
+.search {
+    margin-right: 10px;
+    justify-content: flex-end;
+}
+
+
 svg {
+    cursor: pointer;
     fill: white;
 }
 
@@ -58,7 +78,7 @@ svg {
     margin-left: 10%; 
 }
 
-.name {
+.name, .head-text {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -66,5 +86,3 @@ svg {
     color: white;
     font-weight: bold;
 }
-
-

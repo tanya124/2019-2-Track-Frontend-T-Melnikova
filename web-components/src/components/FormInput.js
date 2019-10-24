@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -41,7 +40,6 @@ template.innerHTML = `
 class FormInput extends HTMLElement {
   constructor() {
     super();
-    // eslint-disable-next-line no-underscore-dangle
     this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
