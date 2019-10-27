@@ -6,13 +6,16 @@ template.innerHTML = `
       display: flex;
       flex-direction: row;
       width: 100%;
-      height: 9vh;
+      min-width: 550px;
+      height: 63px;
       position:relative;
       margin: 0;
     }
+    .conversation_block:hover {
+      background: #f5f5f5;
+    }
     .photo {
-      flex-grow:1;
-      wigth:60px;
+      margin-left: 10px;
       height: 60px;
       display: inline-flex;
       align-items: center;
@@ -20,26 +23,28 @@ template.innerHTML = `
     }
     .content {
       display: flex;
-      max-width: 100%;
+      width: 80%;
+      flex-grow:1;
       flex-direction: column;
-      flex-grow: 20;
       padding:0 10px;
       border-bottom-style: solid;
       border-width-bottom: 1px;
       border-bottom-color: #f1f1f1;
     }
     .name-time, .message-indicator {
+      width: 100%;
       display: flex;
       flex-direction: row;
       margin-top: 5px;
     }
 
     .message, .name {
-      flex-grow: 10;
+      max-width: 90%;
+      /*flex-grow: 1;*/
     }
     .message {
       display: block;
-      max-width: 95%;
+      /*max-width: 90%;*/
       white-space: nowrap; /* forces text to single line */
       overflow: hidden;
       text-overflow: ellipsis;
@@ -47,8 +52,10 @@ template.innerHTML = `
       color: gray;
     }
     .time, .indicator {
-      flex-grow: 0;
-      justify-content: flex-end;
+      margin-left: auto;
+      width: 10%;
+      align-self: flex-end;
+      text-align: right;
       font-size: 12px; 
       color: gray;
     }
@@ -57,6 +64,15 @@ template.innerHTML = `
       border: 2px solid #f1f1f1;
       border-radius: 100%;
     }
+    /*.name-time{
+      background-color: red;
+    }
+    .message-indicator {
+      background-color: orange;
+    }
+    .photo {
+      background-color: blue;
+    }*/
   </style>
 
   <div class="conversation_block">

@@ -7,8 +7,7 @@ template.innerHTML = `
             word-wrap: break-word;
             box-sizing: border-box;
             border: 0;
-            min-height: 36px;
-            height: 5vh;
+            height: 50px;
             outline: none;
             max-width: 95%;
             padding: 15px 20px;
