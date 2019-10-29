@@ -22,10 +22,6 @@ body {
     flex-direction: column;
 }
 
-body::-webkit-scrollbar { 
-    width: 0;
-}
-
 .conversation {
     display: none;
     height: 100%;

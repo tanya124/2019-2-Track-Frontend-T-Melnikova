@@ -44,22 +44,10 @@ template.innerHTML = `
           align-self: flex-end;
           margin-right: 10px;
           background-color: #f2e3ff;
-
-          -webkit-animation-duration: 1s;
           animation-duration: 1s;
-          -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
         }
-        @-webkit-keyframes bouceInRight {
-          0% {
-             opacity: 0;
-             -webkit-transform: translateX(20px);
-          }
-          100% {
-             opacity: 1;
-             -webkit-transform: translateX(0);
-          }
-       }
+        
         @keyframes bouceInRight {
           0% {
             opacity: 0;
@@ -71,7 +59,6 @@ template.innerHTML = `
           }
         } 
         .from{
-          -webkit-animation-name: bouceInRight;
           animation-name: bouceInRight;
          }
         .from::after { 
@@ -89,22 +76,10 @@ template.innerHTML = `
           align-self: flex-start;
           margin-left: 10px;
           background-color: #f1f1f1;
-
-          -webkit-animation-duration: 1s;
           animation-duration: 1s;
-          -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
         }
-        @-webkit-keyframes bouceInLeft {
-          0% {
-             opacity: 0;
-             -webkit-transform: translateX(-20px);
-          }
-          100% {
-             opacity: 1;
-             -webkit-transform: translateX(0);
-          }
-       }
+
         @keyframes bounceInLeft {
           0% {
             opacity: 0;
@@ -116,7 +91,6 @@ template.innerHTML = `
           }
         } 
         .to{
-          -webkit-animation-name: bounceInLeft;
           animation-name: bounceInLeft;
          }
         .to::after { 
