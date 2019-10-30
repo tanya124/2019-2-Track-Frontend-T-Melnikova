@@ -5,7 +5,8 @@ import './components/FormInput';
 import './components/MessageForm';
 
 let message_form = document.getElementById('message-form');
-let username = prompt('Введите ваше имя', '');
+// let username = prompt('Введите ваше имя', '');
+let username = 'kek';
 if (!username) {
   username = '';
 }

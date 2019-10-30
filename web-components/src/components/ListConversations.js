@@ -3,12 +3,13 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>
         .list {
+            min-width: 500px;
             display: flex;
             color: black;
             flex-direction: column;
             width: 100%;
-            height: 85vh;
             overflow-y: scroll;
+            overflow-x: scroll;
             align-items: flex-start;
         }
         .list::-webkit-scrollbar { 
@@ -31,6 +32,26 @@ template.innerHTML = `
             align-items: center;
             justify-content: center
         }
+
+        .button-create-chat:hover {
+          box-shadow: 0 0 0 0 #ffffbf;
+          transform: scale(1);
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+          0% {
+              transform: scale(0.95);
+              box-shadow: 0 0 0 0 #ffffbf;
+          }
+          70% {
+              transform: scale(1);
+              box-shadow: 0 0 0 10px #ffffbf;
+          }
+          100% {
+              transform: scale(0.95);
+              box-shadow: 0 0 0 0 #ffffbf;
+            }
+          }
 
         .button-create-chat svg {
             fill: #986800;
@@ -85,6 +106,12 @@ template.innerHTML = `
           justify-content: flex-end;
           padding-right: 10px;
         }
+        #close svg:hover {
+          fill: #ffd191;
+        }
+        #create:hover {
+          background-color: #ffd191;
+        }
 
     </style>
     <div class="list"></div>
@@ -102,7 +129,7 @@ template.innerHTML = `
           </svg>
         </div> 
       </div>   
-      <input id="name" type="text" placeholder="Введите имя собеседника">
+      <input id="name" type="text" placeholder="Введите имя собеседника" autocomplete="off">
       <div id="btn_create_area">
         <input id="create" type="button" value="Создать чат">
       </div>

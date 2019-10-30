@@ -1,6 +1,9 @@
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
+        form {
+         margin: 0;
+        }
         .result {
             display: flex;
             color: black;
@@ -9,6 +12,7 @@ template.innerHTML = `
             height: 85vh;
             overflow-y: scroll;
             align-items: flex-start;
+            padding-top: 10px;
         }
         .result::-webkit-scrollbar { 
             width: 0;
@@ -22,10 +26,9 @@ template.innerHTML = `
         input[type=submit] {
             visibility: collapse;
         }
-        .message_block {
+        .message_block{
             display: flex;
             flex-direction: column;
-            align-self: flex-end;
             justify-content: flex-start;
             max-width: 80%;
             min-width: 7%;
@@ -34,19 +37,71 @@ template.innerHTML = `
             line-height: 24px;
             position:relative;
             padding:10px 20px 0px 20px;
-            margin-right: 10px;
             border-radius: 15px;
-            background-color: #f1f1f1;
         }
-        .message_block::after { 
-            content: ''; 
+
+        .from {
+          align-self: flex-end;
+          margin-right: 10px;
+          background-color: #f2e3ff;
+          animation-duration: 1s;
+          animation-fill-mode: both;
+        }
+        
+        @keyframes bouceInRight {
+          0% {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        } 
+        .from{
+          animation-name: bouceInRight;
+         }
+        .from::after { 
+          content: ''; 
             position: absolute; 
             width: 0; 
             height: 0; 
             right: -8px; 
             bottom: 0px;  
             border: 10px solid; 
-            border-color: transparent transparent #f1f1f1 #f1f1f1; 
+            border-color: transparent transparent #f2e3ff #f2e3ff; 
+        }
+
+        .to {
+          align-self: flex-start;
+          margin-left: 10px;
+          background-color: #f1f1f1;
+          animation-duration: 1s;
+          animation-fill-mode: both;
+        }
+
+        @keyframes bounceInLeft {
+          0% {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        } 
+        .to{
+          animation-name: bounceInLeft;
+         }
+        .to::after { 
+          content: ''; 
+          position: absolute; 
+          width: 0; 
+          height: 0; 
+          left: -8px; 
+          bottom: 0px;  
+          border: 10px solid; 
+          border-color: transparent #f1f1f1 #f1f1f1 transparent; 
         }
         .name {
             height: 100%;
@@ -69,7 +124,7 @@ template.innerHTML = `
             width: 100%;
             display: flex;
             flex-direction: row;
-            margin-button: 0px;
+            margin-button: auto;
         }
     </style>
     <form>
@@ -108,13 +163,14 @@ class MessageForm extends HTMLElement {
 
   _createMessageBlock(content, user_name, time_send) {
     const message_block = document.createElement('div');
-    message_block.setAttribute('class', 'message_block');
+    message_block.setAttribute('class', 'message_block from'); // создание исходящего сообщения
+    // message_block.setAttribute('class', 'message_block to'); // создание входящего сообщения
 
-    const name = document.createElement('div');
+    /* const name = document.createElement('div');
     name.setAttribute('class', 'name');
     const user_name_format = document.createTextNode(`${user_name}:`);
     name.appendChild(user_name_format);
-    message_block.appendChild(name);
+    message_block.appendChild(name); */
 
     const text_message = document.createElement('div');
     text_message.setAttribute('class', 'message');
