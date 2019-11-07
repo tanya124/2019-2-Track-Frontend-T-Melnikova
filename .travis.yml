@@ -1,10 +1,9 @@
 language: node_js
 node_js:
   - "stable"
-
-before_install:
-  - cd web-components
-
+cache:
+  directories:
+  - node_modules
 script:
   - npm run test
   - npm run build
@@ -13,9 +12,8 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: web-components/build
+  local_dir: build
   on:
     branch:
       - master
-      - dev1
-      - /^dev\d+$/
+      - devel
