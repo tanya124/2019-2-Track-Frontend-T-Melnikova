@@ -30,6 +30,17 @@ module.exports = {
 		// a11y
 		'a11y/content-property-no-static-value': true,
 
-		'scale-unlimited/declaration-strict-value': ['/color/', 'fill', 'stroke'],
+		'plugin/stylelint-no-indistinguishable-colors': null,
+		'csstools/use-nesting': null,
+		'color-named': null,
+		'a11y/selector-pseudo-class-focus': null,
+		'a11y/media-prefers-reduced-motion': null,
+		'plugin/no-low-performance-animation-properties': null,
+		'no-eol-whitespace': null,
+		'no-duplicate-selectors': null,
+		'color-format/format': null,
+		'scale-unlimited/declaration-strict-value': null,
+		'font-weight-notation': null,
+		'declaration-block-no-duplicate-properties': null,
 	},
 };

@@ -1,20 +1,21 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import search from '../assets/search.svg';
+import list from '../../assets/list.svg';
 
 const Button = styled.img`
 	width: 3em;
 	margin-right: 10px;
+	margin-left: 20px;
 	&:hover {
 		filter: invert(1);
 	}
 `;
 
 
-function SearchButton() {
+function InfoButton() {
 	return (
-		<Button src={ search } />
+		<Button src={ list } />
 	);
 }
 
-export default SearchButton;
+export default InfoButton;

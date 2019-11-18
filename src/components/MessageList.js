@@ -6,19 +6,19 @@ import '../styles/MessageListStyles.css';
 
 function MessageBlock(props) {
 	const {id, name, time, content } = props;
-	let time_send = String(time);
-	time_send = time_send.slice(0, time_send.lastIndexOf(':'));
+	let timeSend = String(time);
+	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	return (
 		<div className='messageBlock from'>
 			<div className='content'>{content}</div>
-			<div className='time'>{time_send}</div>
+			<div className='time'>{ timeSend }</div>
 		</div>
 	);
 }
 
 function getTime() {
 	const date = new Date();
-    return `${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}:${date.getSeconds()}`;
+	return `${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}:${date.getSeconds()}`;
 }
 
 class MessageList extends React.Component {
@@ -34,6 +34,14 @@ class MessageList extends React.Component {
 		this.updateChats = this.updateChats.bind(this);
 	}
 
+	componentDidMount() {
+		this.scrollToBottom();
+	}
+
+	componentDidUpdate() {
+		this.scrollToBottom();
+	}
+
 	setMessages(_messages) {
 		this.setState(() => ({
 			messages: _messages,
@@ -44,6 +52,10 @@ class MessageList extends React.Component {
 		this.setState(() => ({
 			chat: _chat,
 		}));
+	}
+
+	scrollToBottom = () => {
+		this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
 	}
 
 	updateChats() {
@@ -81,7 +93,6 @@ class MessageList extends React.Component {
 		this.updateChats();
 	}
 
-
 	render() {
 		const { messages } = this.state;
 		return (
@@ -96,6 +107,8 @@ class MessageList extends React.Component {
 							content={message.content} 
 						/>
 					))}
+					<div style={{ float:'left', clear: 'both' }}
+						ref={(el) => { this.messagesEnd = el; }} />
 				</div>
 				<FormInput createMessage={this.createMessage}/>
 			</div>
@@ -103,8 +116,21 @@ class MessageList extends React.Component {
 	}
 }
 
+MessageBlock.propTypes = {
+	id: PropType.number.isRequired,
+	name: PropType.string.isRequired,
+	time: PropType.string.isRequired,
+	content: PropType.string.isRequired,
+};
+
 MessageList.propTypes = {
-	// chat: PropType.object,
+	chat: PropType.shape({
+		id: PropType.number,
+		last_message: PropType.string,
+		messages: PropType.array,
+		name: PropType.string,
+		time: PropType.string,
+	}).isRequired,
 };
 
 export default MessageList;

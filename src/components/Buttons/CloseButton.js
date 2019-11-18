@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import close from '../assets/cross.svg';
+import close from '../../assets/cross.svg';
+import PropType from 'prop-types';
 
 const Button = styled.img`
 	width: 1.5em;
@@ -16,5 +17,9 @@ function CloseButton(props) {
 		<Button src={ close } onClick={()=>props.handleModal()}/>
 	);
 }
+
+CloseButton.propTypes = {
+	handleModal: PropType.func.isRequired,
+};
 
 export default CloseButton;

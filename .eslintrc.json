@@ -53,5 +53,14 @@
 		"semi": ["error", "always"],
 		"quotes": ["error", "single"],
 		"no-mixed-spaces-and-tabs": "error"
-	}
+	},
+	"overrides": [
+        {
+          "files": ["src/components/*.js"],
+          "rules": {
+            "no-plusplus": "off",
+            "max-len": "off"
+          }
+        }
+      ]
 }

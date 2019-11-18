@@ -36,6 +36,7 @@ export class CounterContainer extends React.Component {
 
 CounterContainer.propTypes = {
 	counter: PropTypes.number.isRequired,
+	dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

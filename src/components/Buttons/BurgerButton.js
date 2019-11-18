@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import clip from '../assets/clip.svg';
+import menu from '../../assets/menu.svg';
 
 const Button = styled.img`
 	width: 3em;
@@ -10,10 +10,10 @@ const Button = styled.img`
 	}
 `;
 
-function AttachButton() {
+function BurgerButton() {
 	return (
-		<Button src={ clip } />
+		<Button src={ menu } />
 	);
 }
 
-export default AttachButton;
+export default BurgerButton;

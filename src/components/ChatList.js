@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import user from '../assets/user.svg';
 import pencil from '../assets/pencil.svg';
 import Modal from './Modal';
+import PropType from 'prop-types';
 
 const List = styled.div`
 	min-width: 500px;
@@ -119,15 +120,15 @@ const CreateChatButton = styled.img`
 
 function ChatBlock(props) {
 	const {id, name, lastMessage, time} = props;
-	let time_send = String(time);
-	time_send = time_send.slice(0, time_send.lastIndexOf(':'));
+	let timeSend = String(time);
+	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	return (
 		<Block onClick={() => props.setMode(id, name)}>
 			<Avatar src={ user } />
 			<Content>
 				<NameTime>
 					<Name>{ name }</Name>
-					<Time>{ time_send }</Time>
+					<Time>{ timeSend }</Time>
 				</NameTime>
 				<MessageIndicator>
 					<Message>{ lastMessage }</Message>
@@ -189,7 +190,7 @@ class ChatList extends React.Component {
 			this.setChats(chatCopy);
 			localStorage.setItem('chats', JSON.stringify(this.state.chats));
 		}
-    }
+	}
     
 	render() {
 		const { chats } = this.state;
@@ -213,5 +214,18 @@ class ChatList extends React.Component {
 	}
 }
 
+ChatBlock.propTypes = {
+	id: PropType.number.isRequired,
+	name: PropType.string.isRequired,
+	lastMessage: PropType.string.isRequired,
+	time: PropType.string.isRequired,
+	setMode: PropType.func.isRequired,
+};
+
+ChatList.propTypes = {
+	setMessagesMode: PropType.func.isRequired,
+};
+
+
+
 export default ChatList;
-// this.props.setMessageMode(chat.id, chat.name)}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropType from 'prop-types';
-import AttachButton from './AttachButton';
+import AttachButton from './Buttons/AttachButton';
 import '../styles/FormInputStyles.css';
 
 class FormInput extends React.Component {
@@ -24,11 +24,13 @@ class FormInput extends React.Component {
 		if (event.key === 'Enter' && !event.shiftKey) {
 			event.preventDefault();
 			const { value } = this.state;
-			const message = value;
-			this.setState({
-				value: '',
-			});
-			this.props.createMessage(message);
+			if (value !== '') {
+				const message = value;
+				this.setState({
+					value: '',
+				});
+				this.props.createMessage(message);
+			}
 		}
 	}
 

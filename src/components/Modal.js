@@ -1,7 +1,8 @@
 import React from 'react';
 import Portal from './Portal';
 import '../styles/ModalStyles.css';
-import CloseButton from './CloseButton';
+import CloseButton from './Buttons/CloseButton';
+import PropType from 'prop-types';
 
 class Modal extends React.Component {
 	state = {
@@ -46,23 +47,9 @@ class Modal extends React.Component {
 	}
 }
 
-/*function Modal(props) {
-	return (
-		<Portal >
-			<div className='modalOverlay'>
-				<div className='modalWindow'>
-					<div className='modalHeader'>
-						<p>Новый чат</p>
-						<CloseButton handleModal={props.handleModal}/>
-					</div>
-					<input className='modalBody' type="text" placeholder="Введите имя собеседника" autoComplete="off" height='30' border='0'/>
-					<div className='modalFooter'>
-						<input type="button" value="Создать чат" />
-					</div>
-				</div>
-			</div>
-		</Portal>
-	);
-}*/
+Modal.propTypes = {
+	createChat: PropType.func.isRequired,
+	handleModal: PropType.func.isRequired,
+};
 
 export default Modal;

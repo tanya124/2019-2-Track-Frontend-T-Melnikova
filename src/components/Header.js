@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropType from 'prop-types';
-import SearchButton from './SearchButton';
-import BurgerButton from './BurgerButton';
-import BackButton from './BackButton';
-import InfoButton from './InfoButton';
+import SearchButton from './Buttons/SearchButton';
+import BurgerButton from './Buttons/BurgerButton';
+import BackButton from './Buttons/BackButton';
+import InfoButton from './Buttons/InfoButton';
 
 
 const TopBar = styled.div`
