@@ -119,13 +119,15 @@ const CreateChatButton = styled.img`
 
 function ChatBlock(props) {
 	const {id, name, lastMessage, time} = props;
+	let time_send = String(time);
+	time_send = time_send.slice(0, time_send.lastIndexOf(':'));
 	return (
 		<Block onClick={() => props.setMode(id, name)}>
 			<Avatar src={ user } />
 			<Content>
 				<NameTime>
 					<Name>{ name }</Name>
-					<Time>{ time }</Time>
+					<Time>{ time_send }</Time>
 				</NameTime>
 				<MessageIndicator>
 					<Message>{ lastMessage }</Message>
@@ -150,6 +152,12 @@ class ChatList extends React.Component {
 		this.createChat = this.createChat.bind(this);
 		this.setChats = this.setChats.bind(this);
 	}
+
+	setChats(_chats) {
+		this.setState(() => ({
+			chats: _chats,
+		}));
+	}
     
 	openModal() {
 		this.setState(() => ({
@@ -160,12 +168,6 @@ class ChatList extends React.Component {
 	closeModal() {
 		this.setState(() => ({
 			modalWindowIsOpen: false,
-		}));
-	}
-    
-	setChats(_chats) {
-		this.setState(() => ({
-			chats: _chats,
 		}));
 	}
     
@@ -195,7 +197,7 @@ class ChatList extends React.Component {
 			<div>
 				{ this.state.modalWindowIsOpen && <Modal handleModal={this.closeModal} createChat={this.createChat}/>}
 				<List>
-					{chats.map((chat) => (
+					{chats.reverse().map((chat) => (
 						<ChatBlock 
 							key={chat.id}
 							id={chat.id}

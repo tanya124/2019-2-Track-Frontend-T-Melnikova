@@ -1,0 +1,33 @@
+.formInput {
+	width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: auto;
+}
+
+textarea {
+	display: flex;
+	flex-grow:30;
+	word-wrap: break-word;
+	box-sizing: border-box;
+	border: 0;
+	height: 50px;
+	outline: none;
+	max-width: 95%;
+	padding: 15px 20px;
+	resize: none;
+	margin-bottom: 0;
+}
+textarea::-webkit-scrollbar { 
+	width: 0;
+}
+.attachButton{
+	display: flex;
+	flex-grow:1;
+	justify-content: center;
+	align-items: center;
+}
+:host {
+	display: inline-block;
+	border: 1px solid rgba(25, 25, 25, 0.32);
+}

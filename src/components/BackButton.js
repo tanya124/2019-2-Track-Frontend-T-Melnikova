@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import back from '../assets/back.svg';
 
@@ -15,5 +16,9 @@ function BackButton(props) {
 		<Button src={ back } onClick={()=>props.setMode()}/>
 	);
 }
+
+BackButton.propTypes = {
+	setMode: PropType.func.isRequired, 
+};
 
 export default BackButton;
