@@ -5,7 +5,7 @@
   margin-bottom: auto;
 }
 
-textarea {
+/* textarea {
   display: flex;
   flex-grow: 30;
   word-wrap: break-word;
@@ -21,7 +21,7 @@ textarea {
 
 textarea::-webkit-scrollbar {
   width: 0;
-}
+} */
 
 .attachButton {
   display: flex;

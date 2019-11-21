@@ -6,116 +6,116 @@ import Modal from './Modal';
 import PropType from 'prop-types';
 
 const List = styled.div`
-	min-width: 500px;
-    display: flex;
-    color: black;
-    flex-direction: column;
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: scroll;
-    align-items: flex-start;
-    &::-webkit-scrollbar { 
-        width: 0;
-    }
+  min-width: 500px;
+  display: flex;
+  color: black;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  align-items: flex-start;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `;
 
 const Block = styled.div`
-    display: flex;
-      flex-direction: row;
-      width: 100%;
-      min-width: 550px;
-      height: 63px;
-      position:relative;
-      margin: 0;
-      &:hover {
-        background: #f5f5f5;
-      }
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-width: 550px;
+  height: 63px;
+  position: relative;
+  margin: 0;
+  &:hover {
+    background: #f5f5f5;
+  }
 `;
 
 const Avatar = styled.img`
-	width: 3em;
-	margin-left: 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  width: 3em;
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Content = styled.div`
-    display: flex;
-    width: 80%;
-    flex-grow:1;
-    flex-direction: column;
-    padding:0 10px;
-    border-bottom-style: solid;
-    border-width-bottom: 1px;
-    border-bottom-color: #f1f1f1;
+  display: flex;
+  width: 80%;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 0 10px;
+  border-bottom-style: solid;
+  border-width-bottom: 1px;
+  border-bottom-color: #f1f1f1;
 `;
 
 const NameTime = styled.div`
-    width: 100%;
-      display: flex;
-      flex-direction: row;
-      margin-top: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
 `;
 
 const MessageIndicator = styled.div`
-    width: 100%;
-      display: flex;
-      flex-direction: row;
-      margin-top: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
 `;
 
 const Name = styled.div`
-      max-width: 90%;
+  max-width: 90%;
 `;
 
 const Time = styled.div`
-      margin-left: auto;
-      width: 10%;
-      align-self: flex-end;
-      text-align: right;
-      font-size: 12px; 
-      color: gray;
+  margin-left: auto;
+  width: 10%;
+  align-self: flex-end;
+  text-align: right;
+  font-size: 12px;
+  color: gray;
 `;
 
 const Message = styled.div`
-      max-width: 90%;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: 13px; 
-      color: gray;
+  max-width: 90%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: gray;
 `;
 
 const Indicator = styled.div`
-      margin-left: auto;
-      width: 10%;
-      align-self: flex-end;
-      text-align: right;
-      font-size: 12px; 
-      color: gray;
+  margin-left: auto;
+  width: 10%;
+  align-self: flex-end;
+  text-align: right;
+  font-size: 12px;
+  color: gray;
 `;
 
 const CreateChatButton = styled.img`
-    padding: 10px;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border: 2px solid #fff67b;
-    background-color: #fff67b;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #fff67b;
+  background-color: #fff67b;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center
 
     &:hover {
-        box-shadow: 0 0 0 0 #ffffbf;
-        transform: scale(1);
-        animation: pulse 2s infinite;
-    }
+    box-shadow: 0 0 0 0 #ffffbf;
+    transform: scale(1);
+    animation: pulse 2s infinite;
+  }
 `;
 
 function ChatBlock(props) {

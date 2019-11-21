@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement('template')
 
 template.innerHTML = `
     <style>
@@ -134,78 +134,78 @@ template.innerHTML = `
         <input id="create" type="button" value="Создать чат">
       </div>
     </div>
-`;
+`
 
 class ListConversations extends HTMLElement {
   constructor() {
-    super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    super()
+    this._shadowRoot = this.attachShadow({ mode: 'open' })
+    this._shadowRoot.appendChild(template.content.cloneNode(true))
 
-    this.$conversations_array = JSON.parse(window.localStorage.getItem('chats')) || [];
-    this.$list = this._shadowRoot.querySelector('.list');
-    this.$chat_creater = this._shadowRoot.querySelector('.button-create-chat');
+    this.$conversations_array = JSON.parse(window.localStorage.getItem('chats')) || []
+    this.$list = this._shadowRoot.querySelector('.list')
+    this.$chat_creater = this._shadowRoot.querySelector('.button-create-chat')
 
-    this.$form = this._shadowRoot.querySelector('.form-create-chat');
-    this.$close_btn = this._shadowRoot.querySelector('#close');
-    this.$input = this.shadowRoot.querySelector('#name');
-    this.$btn = this._shadowRoot.querySelector('#create');
+    this.$form = this._shadowRoot.querySelector('.form-create-chat')
+    this.$close_btn = this._shadowRoot.querySelector('#close')
+    this.$input = this.shadowRoot.querySelector('#name')
+    this.$btn = this._shadowRoot.querySelector('#create')
 
     this.$list.addEventListener('click', (event) => {
       if (event.target && event.target.className === 'conversation-block') {
-        event.target._onClick();
-        this._clearList();
+        event.target._onClick()
+        this._clearList()
       }
-    });
-    this.$chat_creater.addEventListener('click', this._onClick.bind(this));
-    this.$btn.addEventListener('click', this._onClickButtonInForm.bind(this));
-    this.$close_btn.addEventListener('click', this._closeForm.bind(this));
+    })
+    this.$chat_creater.addEventListener('click', this._onClick.bind(this))
+    this.$btn.addEventListener('click', this._onClickButtonInForm.bind(this))
+    this.$close_btn.addEventListener('click', this._closeForm.bind(this))
   }
 
   _createChatBlock(id_chat, username, last_massage, time) {
-    const chat = document.createElement('conversation-block');
-    chat.setAttribute('class', 'conversation-block');
-    chat.id_chat = id_chat;
-    chat._setData(username, last_massage, time);
+    const chat = document.createElement('conversation-block')
+    chat.setAttribute('class', 'conversation-block')
+    chat.id_chat = id_chat
+    chat._setData(username, last_massage, time)
 
-    this.$list.appendChild(chat);
+    this.$list.appendChild(chat)
   }
 
   _createChat() {
-    this._createChatBlock(this.$conversations_array.length, this.$input.value, '', '');
+    this._createChatBlock(this.$conversations_array.length, this.$input.value, '', '')
 
     const item = {
       id: this.$conversations_array.length,
       name: this.$input.value,
       messages: [],
-    };
+    }
 
-    this.$conversations_array = JSON.parse(window.localStorage.getItem('chats'));
-    this.$conversations_array.push(item);
-    window.localStorage.setItem('chats', JSON.stringify(this.$conversations_array));
+    this.$conversations_array = JSON.parse(window.localStorage.getItem('chats'))
+    this.$conversations_array.push(item)
+    window.localStorage.setItem('chats', JSON.stringify(this.$conversations_array))
   }
 
   _onClickButtonInForm() {
     if (this.$input.value) {
-      this._createChat();
-      this.$input.value = '';
-      this.$form.style.display = 'none';
+      this._createChat()
+      this.$input.value = ''
+      this.$form.style.display = 'none'
     }
   }
 
   _onClick() {
-    this.$form.style.display = 'flex';
+    this.$form.style.display = 'flex'
   }
 
   _clearList() {
     while (this.$list.firstChild) {
-      this.$list.removeChild(this.$list.firstChild);
+      this.$list.removeChild(this.$list.firstChild)
     }
   }
 
   _closeForm() {
-    this.$form.style.display = 'none';
+    this.$form.style.display = 'none'
   }
 }
 
-customElements.define('list-conversations', ListConversations);
+customElements.define('list-conversations', ListConversations)

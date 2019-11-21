@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement('template')
 
 template.innerHTML = `
 <style>
@@ -93,78 +93,78 @@ template.innerHTML = `
         </div>
     </div>
   </div>
-`;
+`
 
 class Conversation extends HTMLElement {
   constructor() {
-    super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    super()
+    this._shadowRoot = this.attachShadow({ mode: 'open' })
+    this._shadowRoot.appendChild(template.content.cloneNode(true))
 
-    this.$block_conversation = this._shadowRoot.querySelector('.conversation');
-    this.$id_conversation = 0;
-    this.$messages = [];
-    this.$name = this._shadowRoot.querySelector('.name');
-    this.$time = this._shadowRoot.querySelector('.time');
-    this.$last_message = this._shadowRoot.querySelector('.message');
-    this.$indicator = this._shadowRoot.querySelector('.indicator');
+    this.$block_conversation = this._shadowRoot.querySelector('.conversation')
+    this.$id_conversation = 0
+    this.$messages = []
+    this.$name = this._shadowRoot.querySelector('.name')
+    this.$time = this._shadowRoot.querySelector('.time')
+    this.$last_message = this._shadowRoot.querySelector('.message')
+    this.$indicator = this._shadowRoot.querySelector('.indicator')
   }
 
   set id_chat(number) {
-    this.$id_conversation = number;
+    this.$id_conversation = number
   }
 
   get id_chat() {
-    return this.$id_conversation;
+    return this.$id_conversation
   }
 
   _getTime() {
-    let date = new Date();
-    return `${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}:${date.getSeconds()}`;
+    let date = new Date()
+    return `${`0${date.getHours()}`.slice(-2)}:${`0${date.getMinutes()}`.slice(-2)}:${date.getSeconds()}`
   }
 
   _setData(username, last_message, time) {
-    this.$name.value = username;
-    this.$name.appendChild(document.createTextNode(username));
+    this.$name.value = username
+    this.$name.appendChild(document.createTextNode(username))
     if (time === '') {
-      time = this._getTime();
+      time = this._getTime()
     }
 
-    this.$time.appendChild(document.createTextNode(time.substr(0, 5)));
+    this.$time.appendChild(document.createTextNode(time.substr(0, 5)))
     if (last_message === '' || last_message === undefined) {
-      last_message = 'Чат создан';
+      last_message = 'Чат создан'
     }
-    this.$last_message.appendChild(document.createTextNode(last_message));
+    this.$last_message.appendChild(document.createTextNode(last_message))
   }
 
   _setMessages() {
-    let chats = JSON.parse(window.localStorage.getItem('chats'));
+    let chats = JSON.parse(window.localStorage.getItem('chats'))
 
     for (let i = 0; i < chats.length; ++i) {
       if (chats[i].id === this.$id_conversation) {
-        this.$messages = chats[i].messages;
-        break;
+        this.$messages = chats[i].messages
+        break
       }
     }
   }
 
   _onClick() {
-    this._setMessages();
+    this._setMessages()
 
-    let chats = document.getElementsByClassName('chats')[0];
-    let conversation = document.getElementsByClassName('conversation')[0];
-    let message_form = document.getElementById('message-form');
-    let name = document.getElementsByClassName('name')[0];
-    name.appendChild(document.createTextNode(this.$name.value));
-    message_form.id_chat = this.$id_conversation;
+    let chats = document.getElementsByClassName('chats')[0]
+    let conversation = document.getElementsByClassName('conversation')[0]
+    let message_form = document.getElementById('message-form')
+    let name = document.getElementsByClassName('name')[0]
+    name.appendChild(document.createTextNode(this.$name.value))
+    message_form.id_chat = this.$id_conversation
 
-    chats.style.display = 'none';
-    conversation.style.display = 'block';
+    chats.style.display = 'none'
+    conversation.style.display = 'block'
 
     for (let i = 0; i < this.$messages.length; ++i) {
-      message_form._createMessageBlock(this.$messages[i].content, this.$messages[i].name, this.$messages[i].time);
+      message_form._createMessageBlock(this.$messages[i].content, this.$messages[i].name, this.$messages[i].time)
     }
   }
 }
 
-customElements.define('conversation-block', Conversation);
+customElements.define('conversation-block', Conversation)

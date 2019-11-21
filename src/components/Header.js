@@ -6,28 +6,27 @@ import BurgerButton from './Buttons/BurgerButton';
 import BackButton from './Buttons/BackButton';
 import InfoButton from './Buttons/InfoButton';
 
-
 const TopBar = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background-color: blueviolet;
-	height: 8vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: blueviolet;
+  height: 8vh;
 `;
 
 const Title = styled.span`
-	display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 5%;
-    color: white;
-	font-weight: bold;
-	font-size: 2.5vh;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
+  color: white;
+  font-weight: bold;
+  font-size: 2.5vh;
 `;
 
 const SearchAndInfo = styled.div`
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 `;
 
 function Header(props) {

@@ -1,18 +1,73 @@
 import React from 'react';
 import PropType from 'prop-types';
 import FormInput from './FormInput';
+import styled from '@emotion/styled';
 import '../styles/MessageListStyles.css';
 
+const Result = styled.div`
+  display: flex;
+  color: rgb(0, 0, 0);
+  flex-direction: column;
+  width: 100%;
+  height: 85vh;
+  overflow-y: scroll;
+  align-items: flex-start;
+  padding-top: 10px;
+
+  &::-webkit-scrollbar {
+	width: 0;
+  }
+`;
+
+const MessageFrom = styled.div`
+  align-self: flex-end;
+  margin-right: 10px;
+  background-color: rgb(242, 227, 255);
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: bouceInRight;
+
+  &::after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	right: -8px;
+	bottom: 0;
+	border: 10px solid;
+	border-color: transparent transparent rgb(242, 227, 255) rgb(242, 227, 255);
+  }
+`;
+
+const MessageTo = styled.div`
+  align-self: flex-start;
+  margin-left: 10px;
+  background-color: rgb(241, 241, 241);
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: bounceInLeft;
+
+  &::after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -8px;
+	bottom: 0;
+	border: 10px solid;
+	border-color: transparent rgb(241, 241, 241) rgb(241, 241, 241) transparent;
+  }
+`;
 
 function MessageBlock(props) {
 	const {id, name, time, content } = props;
 	let timeSend = String(time);
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	return (
-		<div className='messageBlock from'>
+		<MessageFrom className='messageBlock'>
 			<div className='content'>{content}</div>
 			<div className='time'>{ timeSend }</div>
-		</div>
+		</MessageFrom>
 	);
 }
 
@@ -97,7 +152,7 @@ class MessageList extends React.Component {
 		const { messages } = this.state;
 		return (
 			<div className='messageList'>
-				<div className='result'> 
+				<Result> 
 					{messages.map((message) => (
 						<MessageBlock
 							key={message.id}
@@ -109,7 +164,7 @@ class MessageList extends React.Component {
 					))}
 					<div style={{ float:'left', clear: 'both' }}
 						ref={(el) => { this.messagesEnd = el; }} />
-				</div>
+				</Result>
 				<FormInput createMessage={this.createMessage}/>
 			</div>
 		);

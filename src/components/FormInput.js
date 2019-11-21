@@ -1,7 +1,26 @@
 import React from 'react';
 import PropType from 'prop-types';
 import AttachButton from './Buttons/AttachButton';
+import styled from '@emotion/styled';
 import '../styles/FormInputStyles.css';
+
+const TextArea = styled.textarea`
+  display: flex;
+  flex-grow: 30;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  border: 0;
+  height: 50px;
+  outline: none;
+  max-width: 95%;
+  padding: 15px 20px;
+  resize: none;
+  margin-bottom: 0;
+
+  &::-webkit-scrollbar {
+  	width: 0;
+  }
+`;
 
 class FormInput extends React.Component {
 	constructor(props) {
@@ -38,7 +57,7 @@ class FormInput extends React.Component {
 		const { value } = this.state;
 		return (
 			<form className='formInput'>
-				<textarea value={value} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
+				<TextArea value={value} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
 				<AttachButton className='attachButton'/>
 			</form>
 		);
