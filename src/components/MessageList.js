@@ -39,7 +39,7 @@ const MessageFrom = styled.div`
   }
 `;
 
-const MessageTo = styled.div`
+/* const MessageTo = styled.div`
   align-self: flex-start;
   margin-left: 10px;
   background-color: rgb(241, 241, 241);
@@ -57,10 +57,10 @@ const MessageTo = styled.div`
 	border: 10px solid;
 	border-color: transparent rgb(241, 241, 241) rgb(241, 241, 241) transparent;
   }
-`;
+`; */
 
 function MessageBlock(props) {
-	const {id, name, time, content } = props;
+	const { time, content } = props;
 	let timeSend = String(time);
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	return (
@@ -156,8 +156,6 @@ class MessageList extends React.Component {
 					{messages.map((message) => (
 						<MessageBlock
 							key={message.id}
-							id={message.id}
-							name={message.name}
 							time={message.time}
 							content={message.content} 
 						/>
@@ -172,8 +170,6 @@ class MessageList extends React.Component {
 }
 
 MessageBlock.propTypes = {
-	id: PropType.number.isRequired,
-	name: PropType.string.isRequired,
 	time: PropType.string.isRequired,
 	content: PropType.string.isRequired,
 };
