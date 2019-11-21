@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import PropType from 'prop-types';
 import user from '../assets/user.svg';
 import pencil from '../assets/pencil.svg';
 import Modal from './Modal';
-import PropType from 'prop-types';
 
 const List = styled.div`
   min-width: 500px;
@@ -132,7 +132,7 @@ function ChatBlock(props) {
 				</NameTime>
 				<MessageIndicator>
 					<Message>{ lastMessage }</Message>
-					<Indicator>{ '+'}</Indicator>
+					<Indicator>{ '+' }</Indicator>
 				</MessageIndicator>
 			</Content>
 		</Block>

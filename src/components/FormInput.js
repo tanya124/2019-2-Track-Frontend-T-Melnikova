@@ -1,7 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
-import AttachButton from './Buttons/AttachButton';
 import styled from '@emotion/styled';
+import AttachButton from './Buttons/AttachButton';
 import '../styles/FormInputStyles.css';
 
 const TextArea = styled.textarea`

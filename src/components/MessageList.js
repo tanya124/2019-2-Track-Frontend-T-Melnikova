@@ -1,7 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
-import FormInput from './FormInput';
 import styled from '@emotion/styled';
+import FormInput from './FormInput';
 import '../styles/MessageListStyles.css';
 
 const Result = styled.div`

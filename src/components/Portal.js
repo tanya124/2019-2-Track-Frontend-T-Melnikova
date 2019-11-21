@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import PropType from 'prop-types';
 
 class Portal extends Component {
+	elem = document.createElement('div');
+	
 	componentDidMount() {
 		document.body.appendChild(this.elem);
 	}
@@ -11,7 +13,6 @@ class Portal extends Component {
 		document.body.removeChild(this.elem);
 	}
 
-	elem = document.createElement('div');
 
 	render() {
 		const { children } = this.props;

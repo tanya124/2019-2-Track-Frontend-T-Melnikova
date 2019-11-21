@@ -53,7 +53,9 @@
       "files": ["src/components/*.js"],
       "rules": {
         "no-plusplus": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "react/no-unused-state": "off",
+        "react/destructuring-assignment": "off"
       }
     }
   ]

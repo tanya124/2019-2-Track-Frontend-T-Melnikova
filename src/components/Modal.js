@@ -1,12 +1,18 @@
 import React from 'react';
+import PropType from 'prop-types';
 import Portal from './Portal';
 import '../styles/ModalStyles.css';
 import CloseButton from './Buttons/CloseButton';
-import PropType from 'prop-types';
 
 class Modal extends React.Component {
-	state = {
-		inputText: '',
+	constructor(props) {
+		super(props);
+		this.state = {
+			inputText: '',
+		};
+
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleInputChange = ({target: { value } }) => {
