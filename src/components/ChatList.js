@@ -132,7 +132,7 @@ function ChatBlock(props) {
 				</NameTime>
 				<MessageIndicator>
 					<Message>{ lastMessage }</Message>
-					<Indicator>{ '+' }</Indicator>
+					<Indicator>+</Indicator>
 				</MessageIndicator>
 			</Content>
 		</Block>

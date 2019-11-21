@@ -50,7 +50,7 @@
   },
   "overrides": [
     {
-      "files": ["src/components/*.js"],
+      "files": ["src/components/*.js", "src/app/*.js"],
       "rules": {
         "no-plusplus": "off",
         "max-len": "off",
