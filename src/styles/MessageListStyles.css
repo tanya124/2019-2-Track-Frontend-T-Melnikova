@@ -1,0 +1,55 @@
+.messageList {
+  margin: 0;
+}
+
+.messageBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 80%;
+  min-width: 7%;
+  word-wrap: break-word;
+  margin-bottom: 12px;
+  line-height: 24px;
+  position: relative;
+  padding: 10px 20px 0 20px;
+  border-radius: 15px;
+  white-space: pre-line;
+}
+
+@keyframes bouceInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.content {
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.time {
+  display: inline-flex;
+  font-size: 10px;
+  color: rgb(128, 128, 128);
+  text-align: right;
+  padding: 0 0;
+}

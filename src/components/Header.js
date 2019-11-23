@@ -1,38 +1,63 @@
-import React from 'react'
-import logo from '../assets/logo.svg'
-import styled from '@emotion/styled'
-import { keyframes } from '@emotion/core'
-
-const year = new Date().getFullYear()
-
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`
+import React from 'react';
+import styled from '@emotion/styled';
+import PropType from 'prop-types';
+import SearchButton from './Buttons/SearchButton';
+import BurgerButton from './Buttons/BurgerButton';
+import BackButton from './Buttons/BackButton';
+import InfoButton from './Buttons/InfoButton';
 
 const TopBar = styled.div`
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: blueviolet;
+  height: 8vh;
+`;
 
-  .redux-logo {
-    animation: ${rotate360} infinite 20s linear;
-    height: 80px;
-  }
-`
+const Title = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
+  color: white;
+  font-weight: bold;
+  font-size: 2.5vh;
+`;
 
-function Header() {
-  return (
-    <TopBar>
-      <img src={logo} className="redux-logo" alt="logo" />
-      <h2>Track Mail.Ru, {year}</h2>
-    </TopBar>
-  )
+const SearchAndInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+function Header(props) {
+	const { mode, title } = props.state;
+	switch (mode) {
+		case 'messages':
+			return (
+				<TopBar>
+					<BackButton setMode={props.setChatsMode} />
+					<Title>{title}</Title>
+					<SearchAndInfo>
+						<SearchButton />
+						<InfoButton />
+					</SearchAndInfo>
+				</TopBar>
+			);
+		case 'chats':
+			return (
+				<TopBar>
+					<BurgerButton />
+					<Title>{title}</Title>
+					<SearchButton />
+				</TopBar>
+			);
+		default:
+			break;
+	}
 }
 
-export default Header
+Header.propTypes = {
+	setChatsMode: PropType.func.isRequired,
+};
+
+export default Header;

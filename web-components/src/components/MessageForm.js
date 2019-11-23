@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
     <style>
         form {
@@ -131,39 +131,39 @@ template.innerHTML = `
         <div class="result"></div>
         <form-input name="message-text" placeholder="Cообщение"></form-input>
     </form>
-`;
+`
 
 class MessageForm extends HTMLElement {
   constructor() {
-    super();
+    super()
 
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
-    this.$form = this._shadowRoot.querySelector('form');
-    this.$input = this._shadowRoot.querySelector('form-input');
-    this.$message = this._shadowRoot.querySelector('.result');
-    this.$username = '';
-    this.$id_chat = 0;
+    this._shadowRoot = this.attachShadow({ mode: 'open' })
+    this._shadowRoot.appendChild(template.content.cloneNode(true))
+    this.$form = this._shadowRoot.querySelector('form')
+    this.$input = this._shadowRoot.querySelector('form-input')
+    this.$message = this._shadowRoot.querySelector('.result')
+    this.$username = ''
+    this.$id_chat = 0
 
-    this.$form.addEventListener('submit', this._onSubmit.bind(this));
-    this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
+    this.$form.addEventListener('submit', this._onSubmit.bind(this))
+    this.$form.addEventListener('keypress', this._onKeyPress.bind(this))
   }
 
   set id_chat(id_val) {
-    this.$id_chat = id_val;
+    this.$id_chat = id_val
   }
 
   _setUserName(name) {
-    this.$username = name;
+    this.$username = name
   }
 
   _scrollToLast() {
-    this.$message.scrollTop = this.$message.scrollHeight;
+    this.$message.scrollTop = this.$message.scrollHeight
   }
 
   _createMessageBlock(content, user_name, time_send) {
-    const message_block = document.createElement('div');
-    message_block.setAttribute('class', 'message_block from'); // создание исходящего сообщения
+    const message_block = document.createElement('div')
+    message_block.setAttribute('class', 'message_block from') // создание исходящего сообщения
     // message_block.setAttribute('class', 'message_block to'); // создание входящего сообщения
 
     /* const name = document.createElement('div');
@@ -172,93 +172,92 @@ class MessageForm extends HTMLElement {
     name.appendChild(user_name_format);
     message_block.appendChild(name); */
 
-    const text_message = document.createElement('div');
-    text_message.setAttribute('class', 'message');
+    const text_message = document.createElement('div')
+    text_message.setAttribute('class', 'message')
 
-    const messageList = content.split('\n');
-    let flag = true; // true, если элементы еще не добавлялись
+    const messageList = content.split('\n')
+    let flag = true // true, если элементы еще не добавлялись
 
     for (const row of messageList) {
       if (row || (row && !flag)) {
-        const row_node = document.createTextNode(row);
-        text_message.appendChild(row_node);
-        text_message.appendChild(document.createElement('br'));
-        flag = false;
+        const row_node = document.createTextNode(row)
+        text_message.appendChild(row_node)
+        text_message.appendChild(document.createElement('br'))
+        flag = false
       }
     }
 
-    message_block.appendChild(text_message);
+    message_block.appendChild(text_message)
 
-    const time = document.createElement('div');
-    time.setAttribute('class', 'time');
-    const format_time = document.createTextNode(time_send.slice(0, time_send.lastIndexOf(':')));
-    time.appendChild(format_time);
-    message_block.appendChild(time);
+    const time = document.createElement('div')
+    time.setAttribute('class', 'time')
+    const format_time = document.createTextNode(time_send.slice(0, time_send.lastIndexOf(':')))
+    time.appendChild(format_time)
+    message_block.appendChild(time)
 
-    this.$message.appendChild(message_block);
+    this.$message.appendChild(message_block)
 
-    this._scrollToLast();
+    this._scrollToLast()
   }
 
   _getUserName() {
-    let user_name;
+    let user_name
     if (this.$username) {
-      user_name = this.$username;
+      user_name = this.$username
     } else {
-      user_name = 'Anonymous';
+      user_name = 'Anonymous'
     }
-    return user_name;
+    return user_name
   }
 
   _getTime() {
-    const date = new Date();
-    return `${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}:${date.getSeconds()}`;
+    const date = new Date()
+    return `${`0${date.getHours()}`.slice(-2)}:${`0${date.getMinutes()}`.slice(-2)}:${date.getSeconds()}`
   }
 
   _onSubmit(event) {
-    event.preventDefault();
-    const user_name = this._getUserName();
-    const time_send = this._getTime();
-    this._createMessageBlock(this.$input.value, user_name, time_send);
+    event.preventDefault()
+    const user_name = this._getUserName()
+    const time_send = this._getTime()
+    this._createMessageBlock(this.$input.value, user_name, time_send)
   }
 
   _onKeyPress(event) {
     if (event.keyCode === 13 && !event.shiftKey) {
-      event.preventDefault();
+      event.preventDefault()
       if (this.$input.value !== '' && this.$input.value !== '\n') {
-        this.$form.dispatchEvent(new Event('submit'));
+        this.$form.dispatchEvent(new Event('submit'))
 
-        const user_name = this._getUserName();
-        const time_send = this._getTime();
+        const user_name = this._getUserName()
+        const time_send = this._getTime()
 
-
-        const chats = JSON.parse(window.localStorage.getItem('chats'));
-        let node_chat = {};
+        const chats = JSON.parse(window.localStorage.getItem('chats'))
+        let node_chat = {}
         for (let i = 0; i < chats.length; ++i) {
           if (chats[i].id === this.$id_chat) {
-            node_chat = chats[i];
-            chats.splice(i, 1);
-            break;
+            node_chat = chats[i]
+            chats.splice(i, 1)
+            break
           }
         }
         node_chat.messages.push({
           name: user_name,
           time: time_send,
           content: this.$input.value,
-        });
-        chats.push(node_chat);
+        })
+        chats.push(node_chat)
 
-        window.localStorage.setItem('chats', JSON.stringify(chats));
+        window.localStorage.setItem('chats', JSON.stringify(chats))
       }
-      this.$input._reset();
+      this.$input._reset()
     }
   }
 
   _clearForm() {
     while (this.$message.firstChild) {
-      this.$message.removeChild(this.$message.firstChild);
+      this.$message.removeChild(this.$message.firstChild)
     }
   }
 }
 
-customElements.define('message-form', MessageForm);
+customElements.define('message-form', MessageForm)
