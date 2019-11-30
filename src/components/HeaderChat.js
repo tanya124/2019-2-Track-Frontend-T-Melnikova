@@ -32,7 +32,7 @@ const SearchAndInfo = styled.div`
 function HeaderChat(props) {
 	return (
 		<TopBar>
-			<Link className='link' to={'/'} > 
+			<Link className='link' to='/' > 
 				<BackButton />
 			</Link> 
 			<Title>Тут должно быть название чата</Title>
