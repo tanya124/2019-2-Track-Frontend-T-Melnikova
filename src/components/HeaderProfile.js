@@ -27,7 +27,7 @@ const Title = styled.span`
 function HeaderProfile(props) {
 	return (
 		<TopBar>
-			<Link className='link' to={'/chats'} style={{ textDecoration: 'none' }}> 
+			<Link className='link' to={'/'} style={{ textDecoration: 'none' }}> 
 				<BackButton />
 			</Link> 
 			<Title>Редактировать профиль</Title>
