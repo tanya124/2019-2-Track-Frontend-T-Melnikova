@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropType from 'prop-types';
-import HeaderProfile from '../components/HeaderProfile';
+import HeaderProfile from './HeaderProfile';
 import Avatar from './Buttons/Avatar';
 
 const ProfileContainer = styled.form`

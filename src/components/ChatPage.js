@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropType from 'prop-types';
-import HeaderChat from '../components/HeaderChat';
-import MessageList from '../components/MessageList';
+import HeaderChat from './HeaderChat';
+import MessageList from './MessageList';
 
 const Container = styled.div``;
 

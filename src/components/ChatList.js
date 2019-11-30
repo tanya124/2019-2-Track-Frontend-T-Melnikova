@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import PropType from 'prop-types';
 import user from '../assets/user.svg';
 import pencil from '../assets/pencil.svg';
 import Modal from './Modal';
-import { Link } from 'react-router-dom';
 import '../styles/ChatsStyles.css';
 
 const List = styled.div`

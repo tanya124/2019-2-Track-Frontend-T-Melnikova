@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import '../styles/Header.css';
 import SearchButton from './Buttons/SearchButton';
 import BurgerButton from './Buttons/BurgerButton';
-import Portal from '../components/Portal';
+import Portal from './Portal';
 
 const TopBar = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ function MenuList() {
 	return (
 		<Portal>
 			<MenuListContainer>
-				<Link to={'/profile'} style={{ textDecoration: 'none' }}>
+				<Link className="linkChat" to={'/profile'}>
 					<Button>
 					Редактировать профиль
 					</Button>

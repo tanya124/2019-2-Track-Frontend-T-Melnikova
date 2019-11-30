@@ -26,11 +26,13 @@ class App extends React.Component {
 			fullName: name,
 		}));
 	}
+
 	setUserName(name) {
 		this.setState(() => ({
 			userName: name,
 		}));
 	}
+
 	setBio(text){
 		this.setState(() => ({
 			bio: text,
