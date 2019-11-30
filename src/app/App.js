@@ -1,45 +1,53 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import Header from '../components/Header';
-import Body from '../components/Body';
+import { Switch, Route } from 'react-router-dom';
+
+import ChatsPage from '../components/ChatsPage';
+import ChatPage from '../components/ChatPage';
+import Profile from '../components/Profile';
 
 const Container = styled.div``;
 
-class App extends Component {
-	constructor(prpos) {
-		super(prpos);
-		this.state = { 
-			mode: 'chats', 
-			chatId: 0, 
-			title: 'Messenger',
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			fullName: 'Kek',
+			userName: '@kek',
+			bio: '2',
 		};
-		this.setMessagesMode = this.setMessagesMode.bind(this);
-		this.setChatsMode = this.setChatsMode.bind(this);
+		this.setFullName = this.setFullName.bind(this);
+		this.setUserName = this.setUserName.bind(this);
+		this.setBio = this.setBio.bind(this);
 	}
 
-	setMessagesMode(_chatId, _title) {
+	setFullName(name) {
 		this.setState(() => ({
-			mode: 'messages',
-			chatId: _chatId,
-			title: _title,
+			fullName: name,
 		}));
 	}
-
-	setChatsMode() {
+	setUserName(name) {
 		this.setState(() => ({
-			mode: 'chats',
-			title: 'Messenger',
+			userName: name,
+		}));
+	}
+	setBio(text){
+		this.setState(() => ({
+			bio: text,
 		}));
 	}
 
 	render() {
 		return (
 			<Container>
-				<Header state={this.state} setChatsMode={this.setChatsMode} />
-				<Body state={this.state} setMessagesMode={this.setMessagesMode} openModal={this.openModal} closeModal={this.closeModal}/>
+				<Switch>
+					<Route path='/chats' component={ChatsPage} />
+					<Route path='/chat/:id' component={ChatPage} />
+					<Route path='/profile' component={ () => <Profile state={this.state} setFullName={this.setFullName} setUserName={this.setUserName} setBio={this.setBio} />} />
+				</Switch>
 			</Container>
 		);
-	}   
+	}
 }
 
 export default App;

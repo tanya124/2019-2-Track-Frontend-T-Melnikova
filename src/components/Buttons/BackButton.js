@@ -1,7 +1,7 @@
 import React from 'react';
-import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import back from '../../assets/back.svg';
+import {Link} from 'react-router-dom';
 
 const Button = styled.img`
 	width: 3em;
@@ -13,12 +13,8 @@ const Button = styled.img`
 
 function BackButton(props) {
 	return (
-		<Button src={ back } onClick={()=>props.setMode()}/>
+		<Button src={ back } />
 	);
 }
-
-BackButton.propTypes = {
-	setMode: PropType.func.isRequired, 
-};
 
 export default BackButton;
