@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import back from '../../assets/back.svg';
-import {Link} from 'react-router-dom';
 
 const Button = styled.img`
 	width: 3em;

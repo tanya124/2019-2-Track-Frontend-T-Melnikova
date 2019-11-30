@@ -1,13 +1,6 @@
 .link {
-  text-decoration: 'none';
   display: flex;
   flex-direction: row;
   max-width: 10%;
 }
 
-.linkChat {
-  text-decoration: 'none';
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
