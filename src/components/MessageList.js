@@ -3,6 +3,7 @@ import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import FormInput from './FormInput';
 import '../styles/MessageListStyles.css';
+import location from '../assets/location.svg';
 
 const Result = styled.div`
   display: flex;
@@ -59,16 +60,33 @@ const MessageFrom = styled.div`
   }
 `; */
 
+const Location = styled.img`
+  width: 2em;
+  margin-left: 5px;
+`;
+
 function MessageBlock(props) {
-	const { time, content } = props;
+	const { time, content, isLocation, link } = props;
 	let timeSend = String(time);
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
-	return (
-		<MessageFrom className='messageBlock'>
-			<div className='content'>{content}</div>
-			<div className='time'>{ timeSend }</div>
-		</MessageFrom>
-	);
+	if (!isLocation){
+		return (
+			<MessageFrom className='messageBlock'>
+				<div className='content'>{content}</div>
+				<div className='time'>{ timeSend }</div>
+			</MessageFrom>
+		);
+	} else if (isLocation) {
+		return (
+			<MessageFrom className='messageBlock'>
+				<div className='content'>
+					<a href={link}>Я тут</a>
+					<Location src={location} />
+				</div>
+				<div className='time'>{ timeSend }</div>
+			</MessageFrom>
+		);
+	}
 }
 
 function getTime() {
@@ -85,6 +103,7 @@ class MessageList extends React.Component {
 			chat: props.chat,
 		};
 		this.createMessage = this.createMessage.bind(this);
+		this.createLocationMessage = this.createLocationMessage.bind(this);
 		this.setMessages = this.setMessages.bind(this);
 		this.updateChats = this.updateChats.bind(this);
 	}
@@ -137,12 +156,35 @@ class MessageList extends React.Component {
 			name: this.state.chat.name,
 			time: currentTime,
 			content: message,
+			isLocation: false,
+			link: '',
 		};
 		messages.push(item);
 		this.setMessages(messages);
 		const { chat } = this.state;
 		chat.messages = this.state.messages;
 		chat.last_message = message;
+		chat.time = getTime();
+		this.setChat(chat);
+		this.updateChats();
+	}
+
+	createLocationMessage(textLink) {
+		const { messages } = this.state;
+		const currentTime = getTime(); 
+		const item = {
+			id: messages.length,
+			name: this.state.chat.name,
+			time: currentTime,
+			content: 'location',
+			isLocation: true,
+			link: textLink,
+		};
+		messages.push(item);
+		this.setMessages(messages);
+		const { chat } = this.state;
+		chat.messages = this.state.messages;
+		chat.last_message = 'location';
 		chat.time = getTime();
 		this.setChat(chat);
 		this.updateChats();
@@ -157,13 +199,15 @@ class MessageList extends React.Component {
 						<MessageBlock
 							key={message.id}
 							time={message.time}
-							content={message.content} 
+							content={message.content}
+							isLocation={message.isLocation}
+							link={message.link} 
 						/>
 					))}
 					<div style={{ float:'left', clear: 'both' }}
 						ref={(el) => { this.messagesEnd = el; }} />
 				</Result>
-				<FormInput createMessage={this.createMessage}/>
+				<FormInput createMessage={this.createMessage} createLocationMessage={this.createLocationMessage}/>
 			</div>
 		);
 	}

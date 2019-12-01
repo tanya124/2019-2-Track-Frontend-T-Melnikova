@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import clip from '../../assets/clip.svg';
 
@@ -10,10 +11,14 @@ const Button = styled.img`
 	}
 `;
 
-function AttachButton() {
+function AttachButton(props) {
 	return (
-		<Button src={ clip } />
+		<Button src={ clip } onClick={()=>props.changeMenu()}/>
 	);
 }
 
 export default AttachButton;
+
+AttachButton.propTypes = {
+	changeMenu: PropType.func.isRequired,
+};
