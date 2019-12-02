@@ -129,7 +129,6 @@ class FormInput extends React.Component {
 	}
 
 	onImageLoad(event, files = event.target.files) {
-		const x = this.state.value;
 		if (files.length) {
 			const formData = new FormData();
 			const src = [];

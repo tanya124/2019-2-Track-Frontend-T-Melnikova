@@ -92,7 +92,7 @@ function MessageBlock(props) {
 		return (
 			<MessageFrom className='messageBlock'>
 				<div className='content'>
-					<img src = {src} />
+					<img src = {src} alt='Не удалось загрузить файл.'/>
 				</div>
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
