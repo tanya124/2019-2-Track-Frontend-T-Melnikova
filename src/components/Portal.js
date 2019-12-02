@@ -13,7 +13,6 @@ class Portal extends Component {
 		document.body.removeChild(this.elem);
 	}
 
-
 	render() {
 		const { children } = this.props;
 

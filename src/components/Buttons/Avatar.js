@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import back from '../../assets/back.svg';
+import camera from '../../assets/camera.svg';
 
 const Button = styled.img`
 	width: 3em;
-	margin-left: 10px;
+	margin: 30px;
 	&:hover {
 		filter: invert(0.5);
 	}
 `;
 
-function BackButton(props) {
+function Avatar() {
 	return (
-		<Button src={ back } />
+		<Button src={ camera } />
 	);
 }
 
-export default BackButton;
+export default Avatar;

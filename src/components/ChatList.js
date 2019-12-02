@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import PropType from 'prop-types';
 import user from '../assets/user.svg';
 import pencil from '../assets/pencil.svg';
 import Modal from './Modal';
+import '../styles/ChatsStyles.css';
 
 const List = styled.div`
   min-width: 500px;
@@ -67,6 +69,7 @@ const MessageIndicator = styled.div`
 
 const Name = styled.div`
   max-width: 90%;
+  color: black;
 `;
 
 const Time = styled.div`
@@ -123,21 +126,22 @@ function ChatBlock(props) {
 	let timeSend = String(time);
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	return (
-		<Block onClick={() => props.setMode(id, name)}>
-			<Avatar src={ user } />
-			<Content>
-				<NameTime>
-					<Name>{ name }</Name>
-					<Time>{ timeSend }</Time>
-				</NameTime>
-				<MessageIndicator>
-					<Message>{ lastMessage }</Message>
-					<Indicator>+</Indicator>
-				</MessageIndicator>
-			</Content>
-		</Block>
-	);
-    
+		<Link className='chatLink' to={`/chat/${id}`} style={{ textDecoration: 'none' }}>
+			<Block>
+				<Avatar src={ user } />
+				<Content>
+					<NameTime>
+						<Name>{ name }</Name>
+						<Time>{ timeSend }</Time>
+					</NameTime>
+					<MessageIndicator>
+						<Message>{ lastMessage }</Message>
+						<Indicator>+</Indicator>
+					</MessageIndicator>
+				</Content>
+			</Block>
+		</Link>
+	);   
 }
 
 class ChatList extends React.Component {
@@ -204,8 +208,7 @@ class ChatList extends React.Component {
 							id={chat.id}
 							name={chat.name}
 							lastMessage={chat.last_message}
-							time={chat.time} 
-							setMode={this.props.setMessagesMode} />
+							time={chat.time} />
 					))}
 				</List>
 				<CreateChatButton src={ pencil } onClick={() => this.openModal()}/>
@@ -219,13 +222,6 @@ ChatBlock.propTypes = {
 	name: PropType.string.isRequired,
 	lastMessage: PropType.string.isRequired,
 	time: PropType.string.isRequired,
-	setMode: PropType.func.isRequired,
 };
-
-ChatList.propTypes = {
-	setMessagesMode: PropType.func.isRequired,
-};
-
-
 
 export default ChatList;

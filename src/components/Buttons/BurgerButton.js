@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import menu from '../../assets/menu.svg';
 
@@ -10,10 +11,14 @@ const Button = styled.img`
 	}
 `;
 
-function BurgerButton() {
+function BurgerButton(props) {
 	return (
-		<Button src={ menu } />
+		<Button src={ menu } onClick={()=>props.changeStateMenu()}/>
 	);
 }
 
 export default BurgerButton;
+
+BurgerButton.propTypes = {
+	changeStateMenu: PropType.func.isRequired,
+};
