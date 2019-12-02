@@ -137,7 +137,7 @@ class FormInput extends React.Component {
 				src[i] = window.URL.createObjectURL(files[i]);
 				formData.append('image', files[i]);
 			}
-			this.props.creacteImageMessage(src);
+			this.props.createMessage(src, 'image');
 			fetch('https://tt-front.now.sh/upload', {
 				method: 'POST',
 				body: formData,
@@ -147,7 +147,7 @@ class FormInput extends React.Component {
 
 	onAudioLoad() {
 		this.changeAudioState();
-		const createAudioMessage = this.props.createAudioMessage;
+		const { createMessage } = this.props;
 		const changeState = this.changeAudioState;
 
 		function recordAudio(stream) {
@@ -165,7 +165,7 @@ class FormInput extends React.Component {
 				const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
 				const audioURL = URL.createObjectURL(blob);
 				const content = [audioURL];
-				createAudioMessage(content);
+				createMessage(content, 'audio');
 
 				const data = new FormData();
 				data.append('audio', blob);
@@ -208,7 +208,7 @@ class FormInput extends React.Component {
 		this.changeMenuState();
 		navigator.geolocation.getCurrentPosition((position) => {
 			const textLink = `https://www.openstreetmap.org/#map=18/${  position.coords.latitude  }/${  position.coords.longitude}`;
-			this.props.createLocationMessage(textLink);
+			this.props.createMessage(textLink, 'location');
 		});
 	}
 
@@ -242,7 +242,7 @@ class FormInput extends React.Component {
 				this.setState({
 					value: '',
 				});
-				this.props.createMessage(message);
+				this.props.createMessage(message, 'text');
 			}
 		}
 	}
@@ -263,9 +263,6 @@ class FormInput extends React.Component {
 
 FormInput.propTypes = {
 	createMessage: PropType.func.isRequired,
-	createLocationMessage: PropType.func.isRequired,
-	creacteImageMessage: PropType.func.isRequired,
-	createAudioMessage: PropType.func.isRequired,
 };
 
 AttachMenu.propTypes = {

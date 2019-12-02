@@ -95,7 +95,7 @@ function MessageBlock(props) {
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);
-	} else if (type === 'audio') {
+	} else if (type === 'audio'){
 		return (
 			<MessageFrom className='messageBlock'>
 				<div className='content'>
@@ -105,14 +105,6 @@ function MessageBlock(props) {
 			</MessageFrom>
 		);
 	}
-	return (
-		<MessageFrom className='messageBlock'>
-			<div className='content'>
-					WTF
-			</div>
-			<div className='time'>{ timeSend }</div>
-		</MessageFrom>
-	);
 };
 
 
@@ -130,11 +122,8 @@ class MessageList extends React.Component {
 			chat: props.chat,
 		};
 		this.createMessage = this.createMessage.bind(this);
-		this.createLocationMessage = this.createLocationMessage.bind(this);
-		this.creacteImageMessage = this.creacteImageMessage.bind(this);
 		this.setMessages = this.setMessages.bind(this);
 		this.updateChats = this.updateChats.bind(this);
-		this.createAudioMessage = this.createAudioMessage.bind(this);
 	}
 
 	componentDidMount() {
@@ -177,7 +166,7 @@ class MessageList extends React.Component {
 		localStorage.setItem('chats', JSON.stringify(chats));
 	}
 
-	createMessage(message) {
+	createMessage(message, type) {
 		const { messages } = this.state;
 		const currentTime = getTime(); 
 		const item = {
@@ -189,17 +178,30 @@ class MessageList extends React.Component {
 			link: '',
 			src: [],
 		};
+		if (type === 'location') {
+			item.type = type;
+			item.content = type;
+			item.link = message;
+		} else if (type === 'image') {
+			item.type = type;
+			item.content = type;
+			item.src = message;
+		} else if (type === 'audio') {
+			item.type = type;
+			item.content = type;
+			item.audio = message;
+		}
 		messages.push(item);
 		this.setMessages(messages);
 		const { chat } = this.state;
 		chat.messages = this.state.messages;
-		chat.last_message = message;
+		chat.last_message = item.content;
 		chat.time = getTime();
 		this.setChat(chat);
 		this.updateChats();
 	}
 
-	createLocationMessage(textLink) {
+	/* createLocationMessage(textLink) {
 		const { messages } = this.state;
 		const currentTime = getTime(); 
 		const item = {
@@ -266,7 +268,7 @@ class MessageList extends React.Component {
 		chat.time = getTime();
 		this.setChat(chat);
 		this.updateChats();
-	}
+	} */
 
 	render() {
 		const { messages } = this.state;
@@ -287,8 +289,7 @@ class MessageList extends React.Component {
 					<div style={{ float:'left', clear: 'both' }}
 						ref={(el) => { this.messagesEnd = el; }} />
 				</Result>
-				<FormInput createMessage={this.createMessage} createLocationMessage={this.createLocationMessage} 
-					creacteImageMessage={this.creacteImageMessage} createAudioMessage={this.createAudioMessage}/>
+				<FormInput createMessage={this.createMessage}/>
 			</div>
 		);
 	}
