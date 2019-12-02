@@ -5,6 +5,8 @@ import AttachButton from './Buttons/AttachButton';
 import Portal from './Portal';
 import '../styles/FormInputStyles.css';
 import location from '../assets/location.svg';
+import photo from '../assets/camera.svg';
+import micro from '../assets/mic.svg';
 
 const TextArea = styled.textarea`
   display: flex;
@@ -37,15 +39,17 @@ const MenuListContainer = styled.div`
   border: 1px solid gray;
 `;
 
-const Button = styled.div`
+const Button = styled.a`
   color: black;
   padding: 5px;
   border-bottom: 1px solid gray;
+  width: 100%;
 `;
 
 const Location = styled.img`
   width: 2em;
   margin-left: 5px;
+  margin-right: 5px;
 `;
 
 const Label = styled.div`
@@ -53,15 +57,52 @@ const Label = styled.div`
   flex-direction: row;
 `;
 
+const Photo =   styled.img`
+  width: 2em;
+  margin-left: 5px;
+  margin-right: 5px;
+`;
+
+const MicroOff = styled.img`
+  width: 2em;
+  margin-left: 5px;
+  margin-right: 5px;
+`;
+
+const MicroOn = styled.img`
+  background-color: red;
+  width: 2em;
+  margin-left: 5px;
+  margin-right: 5px;
+`;
+
 function AttachMenu(props){
+	const img = React.createRef();
+
 	return(
 		<Portal>
 			<MenuListContainer>
 				<Label onClick={()=>props.sendLocaion()}>
 					<Location src={ location } />
 					<Button>
-					Location
+					Геопозиция
 					</Button>
+				</Label>
+				<Label onClick={(event) => {
+					if (img) {
+						img.current.click();
+					}
+				}}>
+					<Photo src={photo} />
+					<Button>Фото</Button>
+					<input
+						type="file"
+						ref={img}
+						multiple
+						accept="image/*"
+						style={{ display: 'none' }}
+						onChange={props.onImageLoad}
+					/>
 				</Label>
 			</MenuListContainer>
 		</Portal>
@@ -74,28 +115,116 @@ class FormInput extends React.Component {
 		this.state = {
 			value: '',
 			attachMenuIsOpen: false,
+			audioIsRecord: false,
 		};
 
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.changeMenuState = this.changeMenuState.bind(this);
+		this.changeAudioState = this.changeAudioState.bind(this);
 		this.sendLocaion = this.sendLocaion.bind(this);
+		this.onImageLoad = this.onImageLoad.bind(this);
+		this.onAudioLoad = this.onAudioLoad.bind(this);
+		this.handleDrop = this.handleDrop.bind(this);
 	}
+
+	onImageLoad(event, files = event.target.files) {
+		const x = this.state.value;
+		if (files.length) {
+			const formData = new FormData();
+			const src = [];
+			for (let i = 0; i < files.length; ++i) {
+				src[i] = window.URL.createObjectURL(files[i]);
+				formData.append('image', files[i]);
+			}
+			this.props.creacteImageMessage(src);
+			fetch('https://tt-front.now.sh/upload', {
+				method: 'POST',
+				body: formData,
+			});
+		}
+	}
+
+	onAudioLoad() {
+		this.changeAudioState();
+		const createAudioMessage = this.props.createAudioMessage;
+		const changeState = this.changeAudioState;
+
+		function recordAudio(stream) {
+			const stop = document.getElementById('stop');
+			const chunks = [];
+
+			const mediaRecorder = new MediaRecorder(stream);
+			mediaRecorder.start();
+
+			mediaRecorder.addEventListener('dataavailable', (event) => {
+				chunks.push(event.data);
+			});
+
+			mediaRecorder.addEventListener('stop', () => {
+				const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
+				const audioURL = URL.createObjectURL(blob);
+				const content = [audioURL];
+				createAudioMessage(content);
+
+				const data = new FormData();
+				data.append('audio', blob);
+				fetch('https://tt-front.now.sh/upload', {
+					method: 'POST',
+					body: data,
+				});
+			});
+
+
+			stop.addEventListener('click', () => {
+				mediaRecorder.stop();
+				changeState();
+			});
+		}
+
+		async function getMedia() {
+			let stream = null;
 	
+			try {
+				const constraints = { audio: true };
+				stream = await navigator.mediaDevices.getUserMedia(constraints);
+				recordAudio(stream);
+			} catch (error) {
+				console.log(error.message);
+			}
+		}
+	
+		getMedia();
+	}
+
+	changeAudioState() {
+		const current = this.state.audioIsRecord;
+		this.setState({
+			audioIsRecord: !current,
+		});
+	}
+
 	sendLocaion() {
 		this.changeMenuState();
 		navigator.geolocation.getCurrentPosition((position) => {
 			const textLink = `https://www.openstreetmap.org/#map=18/${  position.coords.latitude  }/${  position.coords.longitude}`;
-			// const message = <a><a href = {textLink} >Im here! Press to explore</a><Location src={location}/></a>;
 			this.props.createLocationMessage(textLink);
 		});
 	}
 
 	changeMenuState() {
+		console.log(1);
 		const current = this.state.attachMenuIsOpen;
 		this.setState({
 			attachMenuIsOpen: !current,
 		});
+	}
+
+	handleDrop(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		const { files } = event.dataTransfer;
+		this.onImageLoad(event, files);
 	}
 
 	handleInputChange(event) {
@@ -122,9 +251,11 @@ class FormInput extends React.Component {
 		const { value } = this.state;
 		return (
 			<form className='formInput'>
-				<TextArea value={value} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
+				<TextArea value={value} onDrop={this.handleDrop} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
+				{!this.state.audioIsRecord && <MicroOff id='start' src={micro} onClick={this.onAudioLoad}/>}
+				{this.state.audioIsRecord && <MicroOn id='stop' src={micro} />}
 				<AttachButton className='attachButton' changeMenu={this.changeMenuState}/>
-				{this.state.attachMenuIsOpen && <AttachMenu sendLocaion={this.sendLocaion}/>}
+				{this.state.attachMenuIsOpen && <AttachMenu sendLocaion={this.sendLocaion} onImageLoad={this.onImageLoad}/>}
 			</form>
 		);
 	}
@@ -133,10 +264,13 @@ class FormInput extends React.Component {
 FormInput.propTypes = {
 	createMessage: PropType.func.isRequired,
 	createLocationMessage: PropType.func.isRequired,
+	creacteImageMessage: PropType.func.isRequired,
+	createAudioMessage: PropType.func.isRequired,
 };
 
 AttachMenu.propTypes = {
 	sendLocaion: PropType.func.isRequired,
+	onImageLoad: PropType.func.isRequired,
 };
 
 export default FormInput;

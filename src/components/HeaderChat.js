@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import PropType from 'prop-types';
 import '../styles/Header.css';
 import { Link } from 'react-router-dom';
 import SearchButton from './Buttons/SearchButton';
@@ -35,7 +36,7 @@ function HeaderChat(props) {
 			<Link className='link' to='/' > 
 				<BackButton />
 			</Link> 
-			<Title>Тут должно быть название чата</Title>
+			<Title>{props.chatName}</Title>
 			<SearchAndInfo>
 				<SearchButton />
 				<InfoButton />
@@ -46,3 +47,7 @@ function HeaderChat(props) {
 }
 
 export default HeaderChat;
+
+HeaderChat.propTypes = {
+	chatName: PropType.string.isRequired,
+};

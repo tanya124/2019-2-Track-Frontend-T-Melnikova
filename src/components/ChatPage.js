@@ -23,7 +23,7 @@ const ChatPage = (props) => {
 	const chat = findChat(chatId);
 	return (
 		<Container>
-			<HeaderChat />
+			<HeaderChat chatName={chat.name}/>
 			<MessageList chat={chat}/> 
 		</Container>
 	);
