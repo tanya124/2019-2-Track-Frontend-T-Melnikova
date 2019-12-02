@@ -76,7 +76,8 @@ function MessageBlock(props) {
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);
-	} else if (type === 'location') {
+	}
+	if (type === 'location') {
 		return (
 			<MessageFrom className='messageBlock'>
 				<div className='content'>
@@ -86,7 +87,8 @@ function MessageBlock(props) {
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);
-	} else if (type === 'image') {
+	}
+	if (type === 'image') {
 		return (
 			<MessageFrom className='messageBlock'>
 				<div className='content'>
@@ -95,7 +97,8 @@ function MessageBlock(props) {
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);
-	} else if (type === 'audio'){
+	}
+	if (type === 'audio'){
 		return (
 			<MessageFrom className='messageBlock'>
 				<div className='content'>
