@@ -126,7 +126,7 @@ function ChatBlock(props) {
 	let timeSend = String(time);
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	return (
-		<Link className='chatLink' to={`/chat/${id}`} style={{ textDecoration: 'none' }}>
+		<Link className='chatLink' to={`/2019-2-Track-Frontend-T-Melnikova/chat/${id}`} style={{ textDecoration: 'none' }}>
 			<Block>
 				<Avatar src={ user } />
 				<Content>
