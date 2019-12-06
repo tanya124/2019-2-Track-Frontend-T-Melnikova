@@ -16,5 +16,5 @@ deploy:
   on:
     branch:
       - master
-      - hw6
+      - hw7
       - devel

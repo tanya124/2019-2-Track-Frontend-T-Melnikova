@@ -3,6 +3,7 @@ import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import FormInput from './FormInput';
 import '../styles/MessageListStyles.css';
+import location from '../assets/location.svg';
 
 const Result = styled.div`
   display: flex;
@@ -59,17 +60,56 @@ const MessageFrom = styled.div`
   }
 `; */
 
+const Location = styled.img`
+  width: 2em;
+  margin-left: 5px;
+`;
+
 function MessageBlock(props) {
-	const { time, content } = props;
+	const { time, content, type, link, src, audio } = props;
 	let timeSend = String(time);
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
-	return (
-		<MessageFrom className='messageBlock'>
-			<div className='content'>{content}</div>
-			<div className='time'>{ timeSend }</div>
-		</MessageFrom>
-	);
-}
+	if (type === 'text') {
+		return (
+			<MessageFrom className='messageBlock'>
+				<div className='content'>{content}</div>
+				<div className='time'>{ timeSend }</div>
+			</MessageFrom>
+		);
+	}
+	if (type === 'location') {
+		return (
+			<MessageFrom className='messageBlock'>
+				<div className='content'>
+					<a href={link}>Я тут</a>
+					<Location src={location} />
+				</div>
+				<div className='time'>{ timeSend }</div>
+			</MessageFrom>
+		);
+	}
+	if (type === 'image') {
+		return (
+			<MessageFrom className='messageBlock'>
+				<div className='content'>
+					<img src = {src} alt='Не удалось загрузить файл.'/>
+				</div>
+				<div className='time'>{ timeSend }</div>
+			</MessageFrom>
+		);
+	}
+	if (type === 'audio'){
+		return (
+			<MessageFrom className='messageBlock'>
+				<div className='content'>
+					<audio src={audio} controls />
+				</div>
+				<div className='time'>{ timeSend }</div>
+			</MessageFrom>
+		);
+	}
+};
+
 
 function getTime() {
 	const date = new Date();
@@ -129,7 +169,7 @@ class MessageList extends React.Component {
 		localStorage.setItem('chats', JSON.stringify(chats));
 	}
 
-	createMessage(message) {
+	createMessage(message, type) {
 		const { messages } = this.state;
 		const currentTime = getTime(); 
 		const item = {
@@ -137,12 +177,28 @@ class MessageList extends React.Component {
 			name: this.state.chat.name,
 			time: currentTime,
 			content: message,
+			type: 'text',
+			link: '',
+			src: [],
 		};
+		if (type === 'location') {
+			item.type = type;
+			item.content = type;
+			item.link = message;
+		} else if (type === 'image') {
+			item.type = type;
+			item.content = type;
+			item.src = message;
+		} else if (type === 'audio') {
+			item.type = type;
+			item.content = type;
+			item.audio = message;
+		}
 		messages.push(item);
 		this.setMessages(messages);
 		const { chat } = this.state;
 		chat.messages = this.state.messages;
-		chat.last_message = message;
+		chat.last_message = item.content;
 		chat.time = getTime();
 		this.setChat(chat);
 		this.updateChats();
@@ -157,7 +213,11 @@ class MessageList extends React.Component {
 						<MessageBlock
 							key={message.id}
 							time={message.time}
-							content={message.content} 
+							content={message.content}
+							type={message.type}
+							link={message.link}
+							src={message.src}
+							audio={message.audio}
 						/>
 					))}
 					<div style={{ float:'left', clear: 'both' }}
@@ -172,6 +232,10 @@ class MessageList extends React.Component {
 MessageBlock.propTypes = {
 	time: PropType.string.isRequired,
 	content: PropType.string.isRequired,
+	type: PropType.string.isRequired,
+	link: PropType.string.isRequired,
+	src: PropType.arrayOf.isRequired,
+	audio: PropType.arrayOf.isRequired,
 };
 
 MessageList.propTypes = {

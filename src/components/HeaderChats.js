@@ -47,7 +47,7 @@ function MenuList() {
 	return (
 		<Portal>
 			<MenuListContainer>
-				<Link className="linkChat" to='/profile'>
+				<Link className="linkChat" to='/2019-2-Track-Frontend-T-Melnikova/profile'>
 					<Button>
 					Редактировать профиль
 					</Button>

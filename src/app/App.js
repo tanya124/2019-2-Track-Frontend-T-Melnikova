@@ -43,9 +43,9 @@ class App extends React.Component {
 		return (
 			<Container>
 				<Switch>
-					<Route exact path='/' component={ChatsPage} />
-					<Route path='/chat/:id' component={ChatPage} />
-					<Route path='/profile' component={ () => <Profile state={this.state} setFullName={this.setFullName} setUserName={this.setUserName} setBio={this.setBio} />} />
+					<Route exact path='/2019-2-Track-Frontend-T-Melnikova/' component={ChatsPage} />
+					<Route path='/2019-2-Track-Frontend-T-Melnikova/chat/:id' component={ChatPage} />
+					<Route path='/2019-2-Track-Frontend-T-Melnikova/profile' component={ () => <Profile state={this.state} setFullName={this.setFullName} setUserName={this.setUserName} setBio={this.setBio} />} />
 				</Switch>
 			</Container>
 		);

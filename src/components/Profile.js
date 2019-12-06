@@ -132,7 +132,7 @@ class Profile extends React.Component {
 							type='text'
 							minLength={5}
 							onChange={this.userNameOnChange}
-							value={this.state.userName} />
+							value={`@${this.state.userName.slice(1)}`} />
 					</Container>
 					<Info>Минимальная длина - 5 символов</Info>
 					<ContainerTextArea>
