@@ -1,8 +1,11 @@
 import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { Switch, Route } from 'react-router-dom'
 
-function App() {
+import './App.css'
+import MainPage from './components/MainPage'
+import LocationPage from './components/LocationPage'
+
+/*function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -16,6 +19,37 @@ function App() {
       </header>
     </div>
   )
+}*/
+
+export const App = () => {
+  return (
+    <div className="App">
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route path="city/:id" component={LocationPage} />
+      </Switch>
+    </div>
+  )
 }
 
-export default App
+/*class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			
+		};
+	}
+
+	render() {
+		return (
+			<div className="app">
+				<Switch>
+					<Route exact path='/' component={MainPage} />
+					<Route path='city/:id' component={LocationPage} />
+				</Switch>
+			</div>
+		);
+	}
+}*/
+
+// export default App;

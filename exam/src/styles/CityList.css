@@ -1,0 +1,16 @@
+.list {
+}
+.create-location {
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #fff67b;
+  background-color: #fff67b;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
