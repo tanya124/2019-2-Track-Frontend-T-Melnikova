@@ -1,9 +1,9 @@
-import React from 'react'
-import HeaderChats from '../../components/HeaderChats'
+import React from 'react';
+import HeaderChats from '../../components/HeaderChats';
 
 export default {
-  title: 'HeaderChats',
-  component: HeaderChats,
-}
+	title: 'HeaderChats',
+	component: HeaderChats,
+};
 
-export const save = () => <HeaderChats />
+export const save = () => <HeaderChats />;

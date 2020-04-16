@@ -69,7 +69,7 @@
     "format:staged": "pretty-quick --staged",
     "lint": "npm run lint:js && npm run lint:dup && npm run lint:css",
     "lint:check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
-    "lint:js:fix": "npm run lint:js -- --fix",
+    "lint:js:fix": "npm run lint:js",
     "lint:js": "eslint src/**/*.js -c .eslintrc.json",
     "lint:css": "stylelint 'src/**/*.{scss,css}' && stylelint --rd 'src/**/*.{scss,css}'",
     "lint:dup": "jscpd -g --threshold=1 tests docker",
@@ -84,7 +84,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run format:staged"
+      "pre-commit": "npm run lint"
     }
   },
   "engines": {
