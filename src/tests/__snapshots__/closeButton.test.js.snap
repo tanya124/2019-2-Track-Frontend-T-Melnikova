@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders correctly 1`] = `
-<img
-  className="css-1vstkwa"
-  onClick={[Function]}
-  src="cross.svg"
-/>
-`;
