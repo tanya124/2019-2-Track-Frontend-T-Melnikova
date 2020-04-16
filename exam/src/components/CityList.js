@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/CityList.css'
-import plus from '../../assets/plus.svg'
+import plus from '../assets/plus.svg'
+import Modal from './Modal'
 
 function Container(props) {
   const { city, country, icon, temperature } = props
@@ -13,10 +14,6 @@ function Container(props) {
       <div className="tmp">°С</div>
     </div>
   )
-}
-
-function Modal() {
-  return <div />
 }
 
 class CityList extends React.Component {
@@ -32,7 +29,7 @@ class CityList extends React.Component {
 
   openModal() {
     this.setState(() => ({
-      modalIsOpen: true,
+      modalIsOpen: false,
     }))
   }
 
