@@ -250,7 +250,7 @@ class FormInput extends React.Component {
 		const { value } = this.state;
 		return (
 			<form className='formInput'>
-				<TextArea value={value} onDrop={this.handleDrop} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
+				<TextArea id="form_input" name="message_text" value={value} onDrop={this.handleDrop} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
 				{!this.state.audioIsRecord && <MicroOff id='start' src={micro} onClick={this.onAudioLoad}/>}
 				{this.state.audioIsRecord && <MicroOn id='stop' src={micro} />}
 				<AttachButton className='attachButton' changeMenu={this.changeMenuState}/>

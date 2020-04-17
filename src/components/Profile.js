@@ -120,7 +120,7 @@ class Profile extends React.Component {
 					<Avatar/>
 					<Container>
 						<Label>Полное имя</Label>
-						<Input
+						<Input name="fullname"
 							type='text' 
 							minLength={1}
 							onChange={this.fullNameOnChange}

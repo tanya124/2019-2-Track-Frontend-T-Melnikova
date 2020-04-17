@@ -13,7 +13,7 @@ const Button = styled.img`
 
 function Save(props) {
 	return (
-		<Button src={ checkmark } onClick={()=>props.saveData()} />
+		<Button id="save" src={ checkmark } onClick={()=>props.saveData()} />
 	);
 }
 

@@ -46,9 +46,9 @@ const Button = styled.div`
 function MenuList() {
 	return (
 		<Portal>
-			<MenuListContainer>
+			<MenuListContainer >
 				<Link className="linkChat" to='/2019-2-Track-Frontend-T-Melnikova/profile'>
-					<Button>
+					<Button id="change_profile">
 					Редактировать профиль
 					</Button>
 				</Link>

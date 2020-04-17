@@ -37,12 +37,12 @@ class Modal extends React.Component {
 		return (
 			<Portal>
 				<div className='modalOverlay'>
-					<div className='modalWindow'>
+					<div id="modal" className='modalWindow'>
 						<div className='modalHeader'>
 							<p>Новый чат</p>
 							<CloseButton handleModal={this.props.handleModal}/>
 						</div>
-						<input className='modalBody' type="text" value={inputText} onChange={this.handleInputChange} placeholder="Введите имя собеседника" autoComplete="off" height='30' border='0'/>
+						<input name="username" className='modalBody' type="text" value={inputText} onChange={this.handleInputChange} placeholder="Введите имя собеседника" autoComplete="off" height='30' border='0'/>
 						<div className='modalFooter'>
 							<input type="button" value="Создать чат" onClick={this.handleSubmit}/>
 						</div>

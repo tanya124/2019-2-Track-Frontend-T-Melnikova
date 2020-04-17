@@ -34,7 +34,7 @@ function HeaderChat(props) {
 	return (
 		<TopBar>
 			<Link className='link' to='/2019-2-Track-Frontend-T-Melnikova/' > 
-				<BackButton />
+				<BackButton/>
 			</Link> 
 			<Title>{props.chatName}</Title>
 			<SearchAndInfo>

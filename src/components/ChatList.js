@@ -127,7 +127,7 @@ function ChatBlock(props) {
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	return (
 		<Link className='chatLink' to={`/2019-2-Track-Frontend-T-Melnikova/chat/${id}`} style={{ textDecoration: 'none' }}>
-			<Block>
+			<Block id={ name }>
 				<Avatar src={ user } />
 				<Content>
 					<NameTime>
@@ -203,7 +203,7 @@ class ChatList extends React.Component {
 				{ this.state.modalWindowIsOpen && <Modal handleModal={this.closeModal} createChat={this.createChat}/>}
 				<List>
 					{chats.reverse().map((chat) => (
-						<ChatBlock 
+						<ChatBlock
 							key={chat.id}
 							id={chat.id}
 							name={chat.name}
@@ -211,7 +211,7 @@ class ChatList extends React.Component {
 							time={chat.time} />
 					))}
 				</List>
-				<CreateChatButton src={ pencil } onClick={() => this.openModal()}/>
+				<CreateChatButton id="create_chat_button" src={ pencil } onClick={() => this.openModal()}/>
 			</div>
 		);
 	}

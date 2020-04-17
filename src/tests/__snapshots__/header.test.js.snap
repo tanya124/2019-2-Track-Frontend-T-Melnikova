@@ -6,6 +6,7 @@ exports[`renders correctly 1`] = `
 >
   <img
     className="css-1v7dot1"
+    name="burger_button"
     onClick={[Function]}
     src="menu.svg"
   />

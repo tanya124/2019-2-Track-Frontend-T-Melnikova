@@ -3,6 +3,7 @@
 exports[`renders correctly 1`] = `
 <img
   className="css-1v7dot1"
+  id="back"
   src="back.svg"
 />
 `;
