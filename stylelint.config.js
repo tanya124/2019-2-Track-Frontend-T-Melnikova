@@ -19,7 +19,7 @@ module.exports = {
       true,
       {
         severity: 'warning',
-        ignore: ['flexbox'],
+        ignore: ['flexbox', 'border-radius', 'transforms2d', 'css-fixed', 'background-img-opts', 'viewport-units'],
       },
     ],
 

@@ -195,7 +195,7 @@ class FormInput extends React.Component {
 				stream = await navigator.mediaDevices.getUserMedia(constraints);
 				recordAudio(stream);
 			} catch (error) {
-				console.log(error.message);
+				// console.log(error.message);
 			}
 		}
 	
@@ -218,7 +218,7 @@ class FormInput extends React.Component {
 	}
 
 	changeMenuState() {
-		console.log(1);
+		// console.log(1);
 		const current = this.state.attachMenuIsOpen;
 		this.setState({
 			attachMenuIsOpen: !current,
@@ -226,7 +226,7 @@ class FormInput extends React.Component {
 	}
 
 	changeEmojiBlockState() {
-		console.log(2);
+		// console.log(2);
 		const current = this.state.emojiBlockIsOpen;
 		this.setState({
 			emojiBlockIsOpen: !current,
