@@ -7,6 +7,8 @@ import '../styles/FormInputStyles.css';
 import location from '../assets/location.svg';
 import photo from '../assets/camera.svg';
 import micro from '../assets/mic.svg';
+import EmojiBlock from './Emoji/EmojiBlock';
+import EmojiBlockButton from './Buttons/EmojiBlockButton';
 
 const TextArea = styled.textarea`
   display: flex;
@@ -116,6 +118,7 @@ class FormInput extends React.Component {
 			value: '',
 			attachMenuIsOpen: false,
 			audioIsRecord: false,
+			emojiBlockIsOpen: false
 		};
 
 		this.handleInputChange = this.handleInputChange.bind(this);
@@ -126,7 +129,10 @@ class FormInput extends React.Component {
 		this.onImageLoad = this.onImageLoad.bind(this);
 		this.onAudioLoad = this.onAudioLoad.bind(this);
 		this.handleDrop = this.handleDrop.bind(this);
+		this.changeEmojiBlockState = this.changeEmojiBlockState.bind(this);
+		this.attachEmoji = this.attachEmoji.bind(this);
 	}
+	
 
 	onImageLoad(event, files = event.target.files) {
 		if (files.length) {
@@ -219,6 +225,14 @@ class FormInput extends React.Component {
 		});
 	}
 
+	changeEmojiBlockState() {
+		console.log(2);
+		const current = this.state.emojiBlockIsOpen;
+		this.setState({
+			emojiBlockIsOpen: !current,
+		});
+	}
+
 	handleDrop(event) {
 		event.stopPropagation();
 		event.preventDefault();
@@ -246,15 +260,24 @@ class FormInput extends React.Component {
 		}
 	}
 
+	attachEmoji(code) {
+		this.setState(prevState => ({
+			value: `${ prevState.value  } :${  code  }: `,
+			emojiBlockIsOpen: false
+		}));
+	}
+
 	render() {
 		const { value } = this.state;
 		return (
 			<form className='formInput'>
-				<TextArea id="form_input" name="message_text" value={value} onDrop={this.handleDrop} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
+				<TextArea name="message_text" value={value} onDrop={this.handleDrop} onChange={this.handleInputChange} onKeyPress={this.handleSubmit} placeholder='Сообщение' autoComplete="off"/>
+				<EmojiBlockButton className='emojiBlockButton' changeEmojiBlockState={this.changeEmojiBlockState} />
 				{!this.state.audioIsRecord && <MicroOff id='start' src={micro} onClick={this.onAudioLoad}/>}
 				{this.state.audioIsRecord && <MicroOn id='stop' src={micro} />}
 				<AttachButton className='attachButton' changeMenu={this.changeMenuState}/>
-				{this.state.attachMenuIsOpen && <AttachMenu sendLocaion={this.sendLocaion} onImageLoad={this.onImageLoad}/>}
+				{(this.state.attachMenuIsOpen && !this.state.emojiBlockIsOpen) && <AttachMenu sendLocaion={this.sendLocaion} onImageLoad={this.onImageLoad}/>}
+				{(this.state.emojiBlockIsOpen && !this.state.attachMenuIsOpen) && <EmojiBlock attachEmoji={this.attachEmoji}/>}
 			</form>
 		);
 	}

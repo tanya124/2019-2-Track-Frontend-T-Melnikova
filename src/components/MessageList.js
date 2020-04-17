@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import FormInput from './FormInput';
 import '../styles/MessageListStyles.css';
 import location from '../assets/location.svg';
+import { parseMessge }  from './Emoji/EmojiBlock';
 
 const Result = styled.div`
   display: flex;
@@ -65,6 +66,7 @@ const Location = styled.img`
   margin-left: 5px;
 `;
 
+
 function MessageBlock(props) {
 	const { time, content, type, link, src, audio } = props;
 	let timeSend = String(time);
@@ -72,7 +74,7 @@ function MessageBlock(props) {
 	if (type === 'text') {
 		return (
 			<MessageFrom className='messageBlock'>
-				<div className='content'>{content}</div>
+				<div className='content'>{parseMessge(content)}</div>
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);

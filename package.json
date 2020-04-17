@@ -199,8 +199,26 @@
   },
   "babel": {
     "presets": [
-      "react-app"
-    ]
+      "react-app",
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "lodash",
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "spec": true
+        }
+      ],
+      "babel-plugin-styled-components",
+      "@babel/plugin-syntax-dynamic-import"
+    ],
+    "env": {
+      "test": {
+        "plugins": ["@babel/plugin-transform-runtime"]
+      }
+    }
   },
   "eslintConfig": {
     "extends": "react-app"

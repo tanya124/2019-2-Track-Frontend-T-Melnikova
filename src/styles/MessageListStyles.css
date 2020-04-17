@@ -45,6 +45,8 @@
 .content {
   max-width: 100%;
   word-wrap: break-word;
+  display: flex;
+  flex-direction: row;
 }
 
 .time {
