@@ -56,7 +56,8 @@
         "max-len": "off",
         "react/no-unused-state": "off",
         "react/destructuring-assignment": "off",
-        "jsx-a11y/media-has-caption": "off"
+        "jsx-a11y/media-has-caption": "off",
+        "no-undef": "off"
       }
     }
   ]

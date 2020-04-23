@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="css-3cjx5i"
+>
+  <img
+    className="css-1v7dot1"
+    name="burger_button"
+    onClick={[Function]}
+    src="menu.svg"
+  />
+  <span
+    className="css-rgtn5"
+  >
+    Чаты
+  </span>
+  <img
+    className="css-6jpwhn"
+    src="search.svg"
+  />
+</div>
+`;

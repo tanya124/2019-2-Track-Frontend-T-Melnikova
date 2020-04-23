@@ -12,7 +12,7 @@ const Button = styled.img`
 
 function BackButton(props) {
 	return (
-		<Button src={ back } />
+		<Button id="back" src={ back } />
 	);
 }
 

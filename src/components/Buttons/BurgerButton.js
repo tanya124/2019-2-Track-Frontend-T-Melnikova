@@ -13,7 +13,7 @@ const Button = styled.img`
 
 function BurgerButton(props) {
 	return (
-		<Button src={ menu } onClick={()=>props.changeStateMenu()}/>
+		<Button name="burger_button" src={ menu } onClick={()=>props.changeStateMenu()}/>
 	);
 }
 

@@ -1,0 +1,13 @@
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  height: 8vh;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 2.5vh;
+}
