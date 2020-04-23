@@ -3,5 +3,4 @@ node_modules/
 build/
 !.eslintrc.json
 src/registerServiceWorker.js
-src/utils/serviceWorker.js
 src/**/__tests__/**

@@ -5,6 +5,7 @@ import PropType from 'prop-types';
 import user from '../assets/user.svg';
 import pencil from '../assets/pencil.svg';
 import Modal from './Modal';
+import { parseMessge }  from './Emoji/EmojiBlock';
 import '../styles/ChatsStyles.css';
 
 const List = styled.div`
@@ -89,6 +90,8 @@ const Message = styled.div`
   text-overflow: ellipsis;
   font-size: 13px;
   color: gray;
+  display: flex;
+  flex-direction: row;
 `;
 
 const Indicator = styled.div`
@@ -135,7 +138,7 @@ function ChatBlock(props) {
 						<Time>{ timeSend }</Time>
 					</NameTime>
 					<MessageIndicator>
-						<Message>{ lastMessage }</Message>
+						<Message>{ parseMessge(lastMessage) }</Message>
 						<Indicator>+</Indicator>
 					</MessageIndicator>
 				</Content>
