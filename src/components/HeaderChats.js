@@ -5,6 +5,7 @@ import '../styles/Header.css';
 import SearchButton from './Buttons/SearchButton';
 import BurgerButton from './Buttons/BurgerButton';
 import Portal from './Portal';
+import Logout from './Auth/Logout';
 
 const TopBar = styled.div`
   display: flex;
@@ -57,7 +58,7 @@ function MenuList() {
 	);
 }
 
-class HeaderChats extends React.Component {
+export default class HeaderChats extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -74,6 +75,7 @@ class HeaderChats extends React.Component {
 		});
 	}
 
+
 	render() {
 		return (
 			<TopBar>
@@ -81,9 +83,8 @@ class HeaderChats extends React.Component {
 				{this.state.menuIsOpen && <MenuList />}
 				<Title>Чаты</Title>
 				<SearchButton />
+				<Logout />
 			</TopBar>
 		);
 	}
 }
-
-export default HeaderChats;

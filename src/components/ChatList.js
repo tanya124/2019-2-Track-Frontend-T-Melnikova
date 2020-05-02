@@ -181,6 +181,22 @@ class ChatList extends React.Component {
     
 	createChat(_name) {
 		if(_name !== '') {
+			const chatData = new FormData();
+			chatData.append('is_group_chat', false);
+			chatData.append('topic', _name);
+			chatData.append('last_message', 'Нет сообщений');
+			chatData.append('companion_name', 'anonim');
+			(async () => {
+				await fetch('http://127.0.0.1:8000/chats/api/chats/create_chat/', {
+					method: 'POST',
+					body: chatData,
+				})
+					.then((resp) => resp.json())
+					.then((data) => {
+						console.log(data);
+						// this.setState({ userID: data.id });
+					});
+			})();
 			this.setChats(JSON.parse(localStorage.getItem('chats')));
 			if (this.state.chats === null) {
 				this.setChats([]);

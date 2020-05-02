@@ -72,9 +72,10 @@ function MessageBlock(props) {
 	let timeSend = String(time);
 	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
 	if (type === 'text') {
+		const parsedContent = parseMessge(content);
 		return (
 			<MessageFrom className='messageBlock'>
-				<div className='content'>{parseMessge(content)}</div>
+				<div className='content'>{parsedContent}</div>
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);

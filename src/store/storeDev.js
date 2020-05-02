@@ -17,6 +17,7 @@ export default function configureStore(initialState = {}) {
 		rootReducer,
 		initialState,
 		composeEnhancers(...enhancers),
+		// applyMiddleware(thunk),
 	);
 	if (module.hot) {
 		// Enable Webpack hot module replacement for reducers
