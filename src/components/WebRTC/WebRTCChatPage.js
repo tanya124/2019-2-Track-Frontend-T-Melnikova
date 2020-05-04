@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import FormInput from '../FormInput';
 import HeaderChat from '../HeaderChat';
-import MessageBlock from '../MessageList';
+// import MessageBlock from '../MessageList';
 
 import '../../styles/MessageListStyles.css';
 
@@ -43,9 +43,13 @@ class WebRTCChatPage extends React.Component {
 
 		peer.on('open', (id) => {
 			this.setState(() => ({ myPeerID: id }));
+			// console.log(id);
 		});
 		peer.on('connection', (conn) => {
 			this.setState(() => ({foreignPeerConn: conn}));
+			conn.on('data', (data) => {
+				// console.log(data);
+			});
 		});
 
 		this.handleForeignIDSubmit = this.handleForeignIDSubmit.bind(this);
@@ -65,9 +69,9 @@ class WebRTCChatPage extends React.Component {
 			foreignInputValue,
 		} = this.state;
 
-		/* this.setState(() => ({ foreignPeerID: foreignInputValue }));
+		this.setState(() => ({ foreignPeerID: foreignInputValue }));
 		this.setState(() => ({ myPeerConn: peer.connect(foreignInputValue) }));
-		this.setState(() => ({ foreignInputValue: '' })); */
+		this.setState(() => ({ foreignInputValue: '' }));
 	}
 
 	handleWebRTCMessagesChange(newMessage) {
@@ -82,20 +86,21 @@ class WebRTCChatPage extends React.Component {
 	}
 
 	render() {
-		const { webRTCMessages, user } = this.state;
+		const { webRTCMessages } = this.state;
 		return (
 			<div>
 				<HeaderChat chatName='WebRTC' />
 				<div className='messageList'>
 					<Result>
 						{webRTCMessages.map((message) => (
-							<MessageBlock
+							/* <MessageBlock
 								key={message.id}
 								time={message.added_at}
 								content={message.content}
 								userId={user.id}
 								messageUserId={message.user}
-							/>
+							/> */
+							<div key={message.id}/>
 						))}
 					</Result>
 					<FormInput createMessage={this.createMessage} />

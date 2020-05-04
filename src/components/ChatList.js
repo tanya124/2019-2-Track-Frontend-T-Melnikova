@@ -180,7 +180,7 @@ class ChatList extends React.Component {
 			})
 				.then((resp) => resp.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					this.setState({ chats: data.chats });
 					localStorage.setItem('chats', JSON.stringify(this.state.chats));
 				});
@@ -194,7 +194,7 @@ class ChatList extends React.Component {
 			})
 				.then((resp) => resp.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					this.setState({ user: data.user });
 				});
 		})();
@@ -239,7 +239,7 @@ class ChatList extends React.Component {
 			})
 				.then((resp) => resp.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					const newChat = data.chat;
 					// eslint-disable-next-line react/no-access-state-in-setstate
 					const newChats = this.state.chats;

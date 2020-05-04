@@ -3,7 +3,7 @@ import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import FormInput from './FormInput';
 import '../styles/MessageListStyles.css';
-import location from '../assets/location.svg';
+// import location from '../assets/location.svg';
 import { parseMessge }  from './Emoji/EmojiBlock';
 
 const Centrifuge = require('centrifuge');
@@ -66,11 +66,11 @@ const MessageTo = styled.div`
   }
 `;
 
-const Location = styled.img`
+/* const Location = styled.img`
   width: 2em;
   margin-left: 5px;
 `;
-
+*/
 
 function MessageBlock(props) {
 	const { time, content, userId, messageUserId} = props;
@@ -138,12 +138,12 @@ function MessageBlock(props) {
 };
 
 
-function getTime() {
+/* function getTime() {
 	const date = new Date();
 	return `${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}:${date.getSeconds()}`;
-}
+} */
 
-class MessageList extends React.Component {
+export default class MessageList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -176,9 +176,9 @@ class MessageList extends React.Component {
 			})
 				.then((resp) => resp.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					this.setState({ messages: data.message });
-					console.log(this.state.messages);
+					// console.log(this.state.messages);
 				});
 		})();
 
@@ -189,12 +189,13 @@ class MessageList extends React.Component {
 			})
 				.then((resp) => resp.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					this.setState({ user: data.user });
 				});
 		})();
 		const centrifuge = new Centrifuge(CENTRIFUGE_WS_URL);
 
+		// eslint-disable-next-line func-names
 		centrifuge.subscribe('centrifuge', function(response) {
 			// const { messages } = this.state;
 			if (response.data.status === 'ok') {
@@ -360,5 +361,3 @@ MessageList.propTypes = {
 		// time: PropType.string,
 	}).isRequired,
 };
-
-export default MessageList;
