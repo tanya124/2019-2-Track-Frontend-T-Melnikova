@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
-import Peer from 'peerjs';
+// import Peer from 'peerjs';
 import styled from '@emotion/styled';
 
 import FormInput from '../FormInput';
@@ -30,18 +30,18 @@ class WebRTCChatPage extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const peer = new Peer();
+		// const peer = new Peer();
 
 		this.state = {
 			webRTCMessages: [],
-			peer,
+			// peer,
 			foreignInputValue: '',
 			foreignPeerID: {},
 			myPeerConn: {},
 			myPeerID: {},
 		};
 
-		peer.on('open', (id) => {
+		/* peer.on('open', (id) => {
 			this.setState(() => ({ myPeerID: id }));
 			// console.log(id);
 		});
@@ -50,7 +50,7 @@ class WebRTCChatPage extends React.Component {
 			conn.on('data', (data) => {
 				// console.log(data);
 			});
-		});
+		}); */
 
 		this.handleForeignIDSubmit = this.handleForeignIDSubmit.bind(this);
 		this.handleForeignIDInputChange = this.handleForeignIDInputChange.bind(this);
