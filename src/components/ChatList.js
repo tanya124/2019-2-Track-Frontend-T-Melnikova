@@ -125,9 +125,10 @@ const CreateChatButton = styled.img`
 `;
 
 function ChatBlock(props) {
-	const {id, name, lastMessage, time} = props;
-	let timeSend = String(time);
-	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
+	const {id, name, lastMessage} = props;
+	// let timeSend = String(time);
+	// timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
+	const timeSend = '4:19';
 	return (
 		<Link className='chatLink' to={`/2019-2-Track-Frontend-T-Melnikova/chat/${id}`} style={{ textDecoration: 'none' }}>
 			<Block id={ name }>
@@ -152,13 +153,53 @@ class ChatList extends React.Component {
 		super(props);
 		this.state = {
 			modalWindowIsOpen: false,
-			chats: JSON.parse(localStorage.getItem('chats')) || [],
+			// chats: JSON.parse(localStorage.getItem('chats')) || [],
+			chats: [],
+			token: localStorage.getItem('token'),
+			user: {},
 		};
         
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 		this.createChat = this.createChat.bind(this);
 		this.setChats = this.setChats.bind(this);
+	}
+
+	componentDidMount() {
+		const headers = {
+			'Content-Type': 'application/json',
+		};
+  
+		if (this.state.token) {
+			headers.Authorization = `Token ${this.state.token}`;
+		}
+		(async () => {
+			await fetch('http://127.0.0.1:8000/chats/api/chats/chat_list/', {
+				method: 'GET',
+				headers
+			})
+				.then((resp) => resp.json())
+				.then((data) => {
+					console.log(data);
+					this.setState({ chats: data.chats });
+					localStorage.setItem('chats', JSON.stringify(this.state.chats));
+				});
+		})();
+
+
+		(async () => {
+			await fetch('http://127.0.0.1:8000/users/api/users/profile/', {
+				method: 'GET',
+				headers
+			})
+				.then((resp) => resp.json())
+				.then((data) => {
+					console.log(data);
+					this.setState({ user: data.user });
+				});
+		})();
+
+		
 	}
 
 	setChats(_chats) {
@@ -182,35 +223,30 @@ class ChatList extends React.Component {
 	createChat(_name) {
 		if(_name !== '') {
 			const chatData = new FormData();
-			chatData.append('is_group_chat', false);
+			chatData.append('is_group_chat', 'False');
 			chatData.append('topic', _name);
 			chatData.append('last_message', 'Нет сообщений');
-			chatData.append('companion_name', 'anonim');
-			(async () => {
-				await fetch('http://127.0.0.1:8000/chats/api/chats/create_chat/', {
-					method: 'POST',
-					body: chatData,
-				})
-					.then((resp) => resp.json())
-					.then((data) => {
-						console.log(data);
-						// this.setState({ userID: data.id });
-					});
-			})();
-			this.setChats(JSON.parse(localStorage.getItem('chats')));
-			if (this.state.chats === null) {
-				this.setChats([]);
-			}
-			const chatCopy = this.state.chats;
-			const item = {
-				id: this.state.chats.length,
-				name: _name,
-				messages: [],
-				time: '',
-				last_message: '',
-			};
-			chatCopy.push(item);
-			this.setChats(chatCopy);
+			chatData.append('companion_name', 'user822');
+
+
+			const headers = {};
+			headers.Authorization = `Token ${this.state.token}`;
+
+			fetch('http://127.0.0.1:8000/chats/api/chats/create_chat/', {
+				method: 'POST',
+				headers,
+				body: chatData
+			})
+				.then((resp) => resp.json())
+				.then((data) => {
+					console.log(data);
+					const newChat = data.chat;
+					// eslint-disable-next-line react/no-access-state-in-setstate
+					const newChats = this.state.chats;
+					newChats.push(newChat);
+
+					this.setState({ chats: newChats});
+				});
 			localStorage.setItem('chats', JSON.stringify(this.state.chats));
 		}
 	}
@@ -225,9 +261,9 @@ class ChatList extends React.Component {
 						<ChatBlock
 							key={chat.id}
 							id={chat.id}
-							name={chat.name}
+							name={chat.topic}
 							lastMessage={chat.last_message}
-							time={chat.time} />
+						/>
 					))}
 				</List>
 				<CreateChatButton id="create_chat_button" src={ pencil } onClick={() => this.openModal()}/>
@@ -240,7 +276,6 @@ ChatBlock.propTypes = {
 	id: PropType.number.isRequired,
 	name: PropType.string.isRequired,
 	lastMessage: PropType.string.isRequired,
-	time: PropType.string.isRequired,
 };
 
 export default ChatList;
