@@ -6,6 +6,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
+
 import store from '../store';
 import {auth} from '../actions';
 
@@ -14,6 +15,7 @@ import ChatPage from '../components/ChatPage';
 import Profile from '../components/Profile';
 import Login from '../components/Auth/Login';
 import Register from '../components/Auth/Register';
+import WebRTCChatPage from '../components/WebRTC/WebRTCChatPage';
 
 const Container = styled.div``;
 
@@ -85,6 +87,7 @@ class RootContainerComponent extends React.Component {
 						<Route path='/2019-2-Track-Frontend-T-Melnikova/profile' component={ () => <Profile state={this.state} setFullName={this.setFullName} setUserName={this.setUserName} setBio={this.setBio} />} />
 						<Route exact path='/login' component={Login} />
 						<Route exact path="/register" component={Register} />
+						<Route exact path='/webrtc' component={WebRTCChatPage} />
 					</Switch>
 				</BrowserRouter>
 			</Container>

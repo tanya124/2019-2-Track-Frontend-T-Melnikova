@@ -257,6 +257,21 @@ class ChatList extends React.Component {
 			<div>
 				{ this.state.modalWindowIsOpen && <Modal handleModal={this.closeModal} createChat={this.createChat}/>}
 				<List>
+					<Link className='chatLink' to="/webrtc" style={{ textDecoration: 'none' }}>
+						<Block id={ 9999 }>
+							<Avatar src={ user } />
+							<Content>
+								<NameTime>
+									<Name>WebRTC</Name>
+									<Time>4:20</Time>
+								</NameTime>
+								<MessageIndicator>
+									<Message>Welcome to WebRTC chat</Message>
+									<Indicator>+</Indicator>
+								</MessageIndicator>
+							</Content>
+						</Block>
+					</Link>
 					{chats.reverse().map((chat) => (
 						<ChatBlock
 							key={chat.id}
