@@ -16,5 +16,5 @@ deploy:
   on:
     branch:
       - master
-      - hw4)2
+      - hw7_2
       - devel
