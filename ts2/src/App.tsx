@@ -17,6 +17,7 @@ class App extends React.Component<{}, {country: string, inputCountry: string}> {
   }
 
   componentDidUpdate() {
+    d3.select("#country").selectAll('*').remove();
     d3.select("svg").selectAll('*').remove();
   }
 
