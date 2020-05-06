@@ -8,15 +8,14 @@ function handleMouseOver(data: IStat, i: number) {
 
 	rect.attr('fill', "red")
 
-	let info = d3.select(`[id="info"]`)
-	info
+	d3.select(`[id="info"]`)
 	.append('text')
 	.text(function(d, i) { return data.Active });
 }
 
 function handleMouseOut(d: IStat, i: number) {
 	d3.select(`[id="${i}"]`).attr('fill', "orange");
-	let info = d3.select(`[id="info"]`).selectAll('text').remove()
+	d3.select(`[id="info"]`).selectAll('text').remove()
 }
 
 async function generateCharts(svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
@@ -28,8 +27,6 @@ async function generateCharts(svg: d3.Selection<d3.BaseType, any, d3.BaseType, a
 	let title = d3.select(`[id="country"]`)
 	title.append('text')
 	.text(function(d, i) { return data[0].Country });
-
-	const maxUnits = d3.max(data, data => data.Active)
 
 	const y = d3.scaleLinear()
 		.domain([0, dimensions.height])
@@ -52,7 +49,7 @@ async function generateCharts(svg: d3.Selection<d3.BaseType, any, d3.BaseType, a
 		.append('g')
 		.attr("transform", 
           "translate(" + dimensions.marginLeft + "," + dimensions.marginTop + ")");
-	const xAxisGroup = svg
+		svg
 		.append('g')
 		.attr(
 			'transform',
@@ -67,7 +64,7 @@ async function generateCharts(svg: d3.Selection<d3.BaseType, any, d3.BaseType, a
         .attr("dy", "-.55em")
         .attr("transform", "rotate(-90)" );
 		
-	const yAxisGroup = svg
+		svg
 		.append('g')
 		.attr('transform', `translate(${dimensions.marginLeft}, 0)`)
 		.call(yAxis)
@@ -78,7 +75,7 @@ async function generateCharts(svg: d3.Selection<d3.BaseType, any, d3.BaseType, a
         .style("text-anchor", "end")
         .text("Value ($)");
 
-	const charts = svg
+		svg
 		.append('g')
         .attr('transform', `translate(${dimensions.marginLeft}, 0)`)
         .selectAll('rect')

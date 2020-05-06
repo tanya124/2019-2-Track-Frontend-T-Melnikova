@@ -1,5 +1,3 @@
-import { number, string } from "prop-types";
-
 export interface IStat {
 	Active: number;
 	City: string;
