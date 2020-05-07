@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { string } from 'prop-types';
 import TranslateUtils from '../lib/utils/index'
 import '../App.css';
 
