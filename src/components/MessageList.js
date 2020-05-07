@@ -3,8 +3,13 @@ import PropType from 'prop-types';
 import styled from '@emotion/styled';
 import FormInput from './FormInput';
 import '../styles/MessageListStyles.css';
-import location from '../assets/location.svg';
+// import location from '../assets/location.svg';
 import { parseMessge }  from './Emoji/EmojiBlock';
+
+const Centrifuge = require('centrifuge');
+
+const CENTRIFUGE_WS_URL = 'ws://localhost:8001/connection/websocket';
+
 
 const Result = styled.div`
   display: flex;
@@ -41,7 +46,7 @@ const MessageFrom = styled.div`
   }
 `;
 
-/* const MessageTo = styled.div`
+const MessageTo = styled.div`
   align-self: flex-start;
   margin-left: 10px;
   background-color: rgb(241, 241, 241);
@@ -59,22 +64,42 @@ const MessageFrom = styled.div`
 	border: 10px solid;
 	border-color: transparent rgb(241, 241, 241) rgb(241, 241, 241) transparent;
   }
-`; */
+`;
 
-const Location = styled.img`
+/* const Location = styled.img`
   width: 2em;
   margin-left: 5px;
 `;
-
+*/
 
 function MessageBlock(props) {
-	const { time, content, type, link, src, audio } = props;
+	const { time, content, userId, messageUserId} = props;
 	let timeSend = String(time);
-	timeSend = timeSend.slice(0, timeSend.lastIndexOf(':'));
-	if (type === 'text') {
+	timeSend = timeSend.slice(11, timeSend.lastIndexOf(':'));
+	const parsedContent = parseMessge(content);
+	let fromMe = true;
+	if (userId !== messageUserId) {
+		fromMe= false;
+	}
+	if (fromMe) {
 		return (
 			<MessageFrom className='messageBlock'>
-				<div className='content'>{parseMessge(content)}</div>
+				<div className='content'>{parsedContent}</div>
+				<div className='time'>{ timeSend }</div>
+			</MessageFrom>
+		);
+	}
+	return (
+		<MessageTo className='messageBlock'>
+			<div className='content'>{parsedContent}</div>
+			<div className='time'>{ timeSend }</div>
+		</MessageTo>
+	);
+	/* if (type === 'text') {
+		const parsedContent = parseMessge(content);
+		return (
+			<MessageFrom className='messageBlock'>
+				<div className='content'>{parsedContent}</div>
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);
@@ -109,30 +134,86 @@ function MessageBlock(props) {
 				<div className='time'>{ timeSend }</div>
 			</MessageFrom>
 		);
-	}
+	} */
 };
 
 
-function getTime() {
+/* function getTime() {
 	const date = new Date();
 	return `${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}:${date.getSeconds()}`;
-}
+} */
 
-class MessageList extends React.Component {
+export default class MessageList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			id: props.chat.id,
-			messages: props.chat.messages,
+			messages: [],
 			chat: props.chat,
+			token: localStorage.getItem('token'),
+			user: {},
 		};
 		this.createMessage = this.createMessage.bind(this);
 		this.setMessages = this.setMessages.bind(this);
 		this.updateChats = this.updateChats.bind(this);
+		// this.pollMessages = this.pollMessages.bind(this);
 	}
 
 	componentDidMount() {
 		this.scrollToBottom();
+
+		const headers = {
+			'Content-Type': 'application/json',
+		};
+  
+		if (this.state.token) {
+			headers.Authorization = `Token ${this.state.token}`;
+		}
+		(async () => {
+			await fetch(`http://localhost:8000/chats/api/chats/get_list_message/?chat_id=${this.state.id}`, {
+				method: 'GET',
+				headers
+			})
+				.then((resp) => resp.json())
+				.then((data) => {
+					// console.log(data);
+					this.setState({ messages: data.message });
+					// console.log(this.state.messages);
+				});
+		})();
+
+		(async () => {
+			await fetch('http://127.0.0.1:8000/users/api/users/profile/', {
+				method: 'GET',
+				headers
+			})
+				.then((resp) => resp.json())
+				.then((data) => {
+					// console.log(data);
+					this.setState({ user: data.user });
+				});
+		})();
+		const centrifuge = new Centrifuge(CENTRIFUGE_WS_URL);
+
+		// eslint-disable-next-line func-names
+		centrifuge.subscribe('centrifuge', function(response) {
+			// const { messages } = this.state;
+			if (response.data.status === 'ok') {
+				pollMessages();
+			}
+		});
+		const pollMessages = () => {
+			fetch(`http://localhost:8000/chats/api/chats/get_list_message/?chat_id=${this.state.id}`, {
+				method: 'GET',
+				headers
+			})
+				.then((resp) => resp.json())
+				.then((data) => {
+					this.setState({ messages: data.message });
+				});
+		};
+
+		centrifuge.connect();
 	}
 
 	componentDidUpdate() {
@@ -173,17 +254,43 @@ class MessageList extends React.Component {
 
 	createMessage(message, type) {
 		const { messages } = this.state;
-		const currentTime = getTime(); 
+
+		const headers = {
+			// 'Content-Type': 'application/json',
+		};
+  
+		if (this.state.token) {
+			headers.Authorization = `Token ${this.state.token}`;
+		}
+		const messageData = new FormData();
+		messageData.append('chat', this.state.id);
+		messageData.append('content', message);
+		let newMessage = {};
+		fetch('http://localhost:8000/chats/api/chats/send_message/', {
+			method: 'POST',
+			body: messageData,
+			headers
+		})
+			.then((resp) => resp.json())
+			.then((data) => {
+				// console.log(data);
+				newMessage = data.message;
+				messages.push(newMessage);
+				// console.log(messages);
+				this.setMessages(messages);
+			});
+
+		/* const currentTime = getTime(); 
 		const item = {
 			id: messages.length,
 			name: this.state.chat.name,
 			time: currentTime,
 			content: message,
-			type: 'text',
-			link: '',
-			src: [],
-		};
-		if (type === 'location') {
+			// type: 'text',
+			// link: '',
+			// src: [],
+		}; */
+		/* if (type === 'location') {
 			item.type = type;
 			item.content = type;
 			item.link = message;
@@ -195,15 +302,16 @@ class MessageList extends React.Component {
 			item.type = type;
 			item.content = type;
 			item.audio = message;
-		}
-		messages.push(item);
-		this.setMessages(messages);
-		const { chat } = this.state;
-		chat.messages = this.state.messages;
-		chat.last_message = item.content;
-		chat.time = getTime();
-		this.setChat(chat);
-		this.updateChats();
+		} */
+		/* messages.push(newMessage);
+		console.log(messages);
+		this.setMessages(messages); */
+		// const { chat } = this.state;
+		// chat.messages = this.state.messages;
+		// chat.last_message = newMessage.content;
+		// chat.time = getTime();
+		// this.setChat(chat);
+		// this.updateChats();
 	}
 
 	render() {
@@ -214,12 +322,14 @@ class MessageList extends React.Component {
 					{messages.map((message) => (
 						<MessageBlock
 							key={message.id}
-							time={message.time}
+							time={message.added_at}
 							content={message.content}
-							type={message.type}
-							link={message.link}
-							src={message.src}
-							audio={message.audio}
+							userId={this.state.user.id}
+							messageUserId={message.user}
+							// type={message.type}
+							// link={message.link}
+							// src={message.src}
+							// audio={message.audio}
 						/>
 					))}
 					<div style={{ float:'left', clear: 'both' }}
@@ -234,10 +344,12 @@ class MessageList extends React.Component {
 MessageBlock.propTypes = {
 	time: PropType.string.isRequired,
 	content: PropType.string.isRequired,
-	type: PropType.string.isRequired,
-	link: PropType.string.isRequired,
-	src: PropType.arrayOf.isRequired,
-	audio: PropType.arrayOf.isRequired,
+	messageUserId: PropType.string.isRequired,
+	userId: PropType.string.isRequired,
+	// type: PropType.string.isRequired,
+	// link: PropType.string.isRequired,
+	// src: PropType.arrayOf.isRequired,
+	// audio: PropType.arrayOf.isRequired,
 };
 
 MessageList.propTypes = {
@@ -246,8 +358,6 @@ MessageList.propTypes = {
 		last_message: PropType.string,
 		messages: PropType.array,
 		name: PropType.string,
-		time: PropType.string,
+		// time: PropType.string,
 	}).isRequired,
 };
-
-export default MessageList;

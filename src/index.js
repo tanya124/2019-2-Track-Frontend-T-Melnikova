@@ -1,18 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import store from './store';
 import App from './app/App';
 import './styles/globalStyles.css';
 import * as serviceWorker from './utils/serviceWorker';
 
-ReactDOM.render(
+/* ReactDOM.render(
 	<BrowserRouter>
 		<Provider store={store}>
 			<App />
 		</Provider>
 	</BrowserRouter>,
+	document.getElementById('root'),
+); */
+ReactDOM.render(
+	<App />,
 	document.getElementById('root'),
 );
 // If you want your app to work offline and load fat<>er, you can change
