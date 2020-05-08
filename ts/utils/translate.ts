@@ -11,7 +11,7 @@ let cache = new Cache();
 
 async function make_request(lang: string, text: string) : Promise<string> {
 	return fetch(`${API}?key=${API_KEY}&lang=${lang}&text=${text}`, { method: 'POST' })
-	.then((response: any) => response.json())
+	.then((response: Response) => response.json())
 	.then((data: IResponse) => {
 		cache.setCache(`${ text }::::${ lang }`, data.text);
 		return data.text;
@@ -23,7 +23,7 @@ async function make_request(lang: string, text: string) : Promise<string> {
 }
 
 export async function translate(text: string, lang: string): Promise<string> {
-	const value: any = cache.tryGetCache(`${ text }::::${ lang }`)
+	const value: null | string = cache.tryGetCache(`${ text }::::${ lang }`)
 	if (value) {
 		console.log('from cache');
 		return value;
