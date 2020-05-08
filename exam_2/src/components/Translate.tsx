@@ -2,11 +2,15 @@ import * as React from 'react'
 import TranslateUtils from '../lib/utils/index'
 import '../App.css';
 
-function TranslateInput(props: any) {
+function TranslateInput(props: {
+	handleChange: ((event: React.ChangeEvent<HTMLTextAreaElement>) => void) | undefined, 
+	handleSubmit: ((event: React.KeyboardEvent<HTMLTextAreaElement>) => void) | undefined,
+	handleSetLang: ((event: React.FormEvent<HTMLInputElement>) => void) | undefined
+}) {
 	return (
 		<div className="transliteInput">
-		<form onSubmit={props.handleSubmit} >
-			<p>Выберите язык, в который хотите выполнить перевод:</p>
+		<form >
+			<p className="headerBlock">Выберите язык, в который хотите выполнить перевод:</p>
 			<div className='langs'>
 				<input type="button" value='ru' className='button' onClick={props.handleSetLang} />
 				<input type="button" value="en" className='button'onClick={props.handleSetLang}/>
@@ -14,17 +18,16 @@ function TranslateInput(props: any) {
 				<input type="button" value="it" className='button' onClick={props.handleSetLang}/>
 				<input type="button" value="zh" className='button' onClick={props.handleSetLang}/>
 			</div>
-			<p>Введите текст:</p>
-			<input className="input" type='text' onChange={props.handleChange}/>
+			<textarea className="input" onChange={props.handleChange} onKeyPress={props.handleSubmit}/>
 		</form>
 		</div>
 	);
 }
 
-function TranslateOuntput(props: any) {
+function TranslateOuntput(props: {translateText: string, langTo: string}) {
 	return (
 		<div className="transliteOutput">
-			<p>Перевод:</p>
+			<p className="headerBlock">Перевод:</p>
 			<div id="output" >
 				{props.translateText}
 			</div>
@@ -34,42 +37,44 @@ function TranslateOuntput(props: any) {
 
 
 class Translate extends React.Component<{}, {langTo: string, textForTranstale: string, textTranslate: string}> {
-	constructor(props: any){
+	constructor(props: {}){
 		super(props);
-
-		this.state = {
-			langTo: '',
-			textForTranstale: '',
-			textTranslate: ''
-		}
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleSetLang = this.handleSetLang.bind(this);
 	}
 
-	handleChange(event: any) {
+	state = {
+		langTo: '',
+		textForTranstale: '',
+		textTranslate: ''
+	}
+
+	handleChange(event: React.FormEvent<HTMLTextAreaElement>) {
 		event.preventDefault();
 		this.setState({
-			textForTranstale: event.target.value
+			textForTranstale: event.currentTarget.value
 		})
 	  }
 	
-	  async handleSubmit(event: any) {
-		event.preventDefault();
+	  async handleSubmit(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+		if (event.key === 'Enter' && !event.shiftKey) {
+			event.preventDefault();
 
-		  const { textForTranstale, langTo } = this.state;
-		  const result = await TranslateUtils.translate(textForTranstale, langTo);
-		  this.setState({
-			textTranslate: result,
-		  })
+			  const { textForTranstale, langTo } = this.state;
+			  const result = await TranslateUtils.translate(textForTranstale, langTo);
+			  this.setState({
+				textTranslate: result,
+			  })
 
-	  }
+	  	}
+	}
 
-	  handleSetLang(event: any) {
+	  handleSetLang(event: React.FormEvent<HTMLInputElement>) {
 		event.preventDefault();
 		this.setState({
-			langTo: event.target.value
+			langTo: event.currentTarget.value
 		})
 	  }
 
