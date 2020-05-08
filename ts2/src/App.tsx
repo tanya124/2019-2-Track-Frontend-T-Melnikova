@@ -7,13 +7,13 @@ class App extends React.Component<{}, {country: string, inputCountry: string}> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
-      country: 'russia',
-      inputCountry: ''
-    }
-
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  state = {
+    country: 'russia',
+    inputCountry: ''
   }
 
   componentDidUpdate() {
@@ -21,16 +21,15 @@ class App extends React.Component<{}, {country: string, inputCountry: string}> {
     d3.select("svg").selectAll('*').remove();
   }
 
-  handleChange(event: any) {
+  handleChange(event: React.FormEvent<HTMLInputElement>) {
     event.preventDefault();
     this.setState({
-      inputCountry: event.target.value
+      inputCountry: event.currentTarget.value
     })
   }
 
-  handleSubmit(event: any) {
+  handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-      console.log('fdffed')
       const { inputCountry } = this.state;
       this.setState({
         country: inputCountry,

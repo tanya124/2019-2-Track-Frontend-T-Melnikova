@@ -19,7 +19,14 @@ function handleMouseOut(d: IStat, i: number) {
 }
 
 async function generateCharts(svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
-	dimensions: any, country: string)
+	dimensions: {
+		width: number;
+		height: number;
+		marginLeft: number;
+		marginRight: number;
+		marginTop: number;
+		marginBottom: number;
+	}, country: string)
 {
 	let data = await getStats(country)
 	console.log('data', data)
