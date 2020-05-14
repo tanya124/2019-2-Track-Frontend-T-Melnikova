@@ -2,13 +2,13 @@ import { Cache } from './cacheClass';
 import { IResponse, IResponseError } from './types';
 const fetch = require('node-fetch');
 
-let API_KEY: string;
+/* let API_KEY: string;
 if (process.env.API_KEY) {
 	API_KEY = process.env.API_KEY
 } else {
 	API_KEY = require('./private.ts').API_KEY;
-}
-
+} */
+const API_KEY = process.env.API_KEY;
 const API = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
 
 let cache = new Cache();
