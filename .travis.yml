@@ -1,13 +1,12 @@
 language: node_js
 node_js:
   - "stable"
-env:
-  - API_KEY=$API_KEY
 cache:
   directories:
   - node_modules
 script:
   - cd exam_2
+  - API_KEY=$API_KEY
   - npm install
   - CI=false npm run build
 
