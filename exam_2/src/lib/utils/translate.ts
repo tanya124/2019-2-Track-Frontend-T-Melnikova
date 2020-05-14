@@ -1,9 +1,14 @@
 import { Cache } from './cacheClass';
-import { IResponse, IResponseError } from './types'
+import { IResponse, IResponseError } from './types';
 const fetch = require('node-fetch');
 
+let API_KEY: string;
+if (process.env.API_KEY) {
+	API_KEY = process.env.API_KEY
+} else {
+	API_KEY = require('./private.ts').API_KEY;
+}
 
-const API_KEY = 'trnsl.1.1.20190503T141705Z.7e1cb280e23d6a08.185413112c5e3d0261abefb9c4b18b8bf9d8fdc8';
 const API = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
 
 let cache = new Cache();

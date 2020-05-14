@@ -51,9 +51,8 @@
   border-color: gray;
   border-style: solid;
   background-color: white;
-  display: flex;
+  text-align: center;
   width: 100%;
-  justify-content: center;
   margin: 20px;
 }
 
@@ -86,7 +85,7 @@
 .langs{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .button{
