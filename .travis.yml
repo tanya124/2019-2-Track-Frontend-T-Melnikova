@@ -11,13 +11,16 @@ script:
   - npm install
   - CI=false npm run build
 
+
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
+
   local_dir: exam_2/build
   on:
     branch:
       - master
       - exam_2
+
       - devel
