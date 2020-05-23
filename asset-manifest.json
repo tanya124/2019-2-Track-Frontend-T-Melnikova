@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/2019-2-Track-Frontend-T-Melnikova/static/css/main.88544ca2.chunk.css",
+    "main.js": "/2019-2-Track-Frontend-T-Melnikova/static/js/main.f1a471f9.chunk.js",
+    "main.js.map": "/2019-2-Track-Frontend-T-Melnikova/static/js/main.f1a471f9.chunk.js.map",
+    "runtime-main.js": "/2019-2-Track-Frontend-T-Melnikova/static/js/runtime-main.1ed04e0e.js",
+    "runtime-main.js.map": "/2019-2-Track-Frontend-T-Melnikova/static/js/runtime-main.1ed04e0e.js.map",
+    "static/js/2.bca26b0d.chunk.js": "/2019-2-Track-Frontend-T-Melnikova/static/js/2.bca26b0d.chunk.js",
+    "static/js/2.bca26b0d.chunk.js.map": "/2019-2-Track-Frontend-T-Melnikova/static/js/2.bca26b0d.chunk.js.map",
+    "index.html": "/2019-2-Track-Frontend-T-Melnikova/index.html",
+    "precache-manifest.87c58fbb772b949aa9b12cce4ea5b0fd.js": "/2019-2-Track-Frontend-T-Melnikova/precache-manifest.87c58fbb772b949aa9b12cce4ea5b0fd.js",
+    "service-worker.js": "/2019-2-Track-Frontend-T-Melnikova/service-worker.js",
+    "static/css/main.88544ca2.chunk.css.map": "/2019-2-Track-Frontend-T-Melnikova/static/css/main.88544ca2.chunk.css.map",
+    "static/js/2.bca26b0d.chunk.js.LICENSE.txt": "/2019-2-Track-Frontend-T-Melnikova/static/js/2.bca26b0d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1ed04e0e.js",
+    "static/js/2.bca26b0d.chunk.js",
+    "static/css/main.88544ca2.chunk.css",
+    "static/js/main.f1a471f9.chunk.js"
+  ]
+}
