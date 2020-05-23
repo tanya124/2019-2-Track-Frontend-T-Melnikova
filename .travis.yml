@@ -1,21 +1,26 @@
 language: node_js
 node_js:
   - "stable"
+env:
+  - API_KEY=$API_KEY 
 cache:
   directories:
   - node_modules
 script:
-  - cd ts2
+  - cd exam_2
   - npm install
-  - npm run build
+  - CI=false npm run build
+
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: ts2/build
+
+  local_dir: exam_2/build
   on:
     branch:
       - master
-      - hw7_2
+      - exam_2
+
       - devel
